@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Fanex.Graph.Data</RootNamespace>
     <AssemblyName>Fanex.Graph.Data</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -40,6 +40,9 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,13 +51,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbConnectionConfiguration.cs" />
+    <Compile Include="DbSessionFactory.cs" />
     <Compile Include="ICommandBuilder.cs" />
     <Compile Include="ICommandExecutor.cs" />
-    <Compile Include="IDriverCreator.cs" />
+    <Compile Include="IDriverFactory.cs" />
+    <Compile Include="Neo4j\Neo4jCommandBuilder.cs" />
+    <Compile Include="Neo4j\Neo4jDriverFactory.cs" />
     <Compile Include="Neo4j\Neo4jExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GraphSetting.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

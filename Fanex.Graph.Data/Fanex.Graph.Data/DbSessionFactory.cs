@@ -155,7 +155,7 @@ namespace Fanex.Graph.Data
 
             var cmd = builder.BuildCommand(setting);
 
-            return executor.QuerySingle<T>(driver, cmd, parameters);
+            return (T)executor.QuerySingle<T>(driver, cmd, parameters);
         }
     }
 }
