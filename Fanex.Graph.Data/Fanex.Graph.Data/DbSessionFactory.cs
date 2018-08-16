@@ -111,6 +111,15 @@ namespace Fanex.Graph.Data
             return this;
         }
 
+        public DbSessionFactory RegisterModules<TDriver>(IDriverFactory factory, ICommandBuilder commandBuilder, ICommandExecutor<TDriver> executor)
+        {
+            RegisterDriverFactory(factory);
+            RegisterCommandBuilder(commandBuilder);
+            RegisterCommandExecutor(executor);
+
+            return this;
+        }
+
         public void Run()
         {
             drivers = configs.ToDictionary(kv => kv.Key, kv => driverFactory.GetDriver(kv.Value));

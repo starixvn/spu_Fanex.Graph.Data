@@ -1,7 +1,6 @@
 using Fanex.Graph.Data;
 using Fanex.Graph.Data.Neo4j;
 using System;
-using System.Linq;
 
 namespace TestConsole
 {
@@ -17,16 +16,21 @@ namespace TestConsole
                 .RegisterCommandExecutor(new Neo4jExecutor())
                 .Run();
 
-            var data = DbSessionFactory.Query<O>("a").ToArray();
+            var data = DbSessionFactory.Query<O>("b");
+
+            foreach (var item in data)
+            {
+                Console.WriteLine($"no: {item.No}, name: {item.Name}");
+            }
 
             Console.ReadKey();
         }
 
         public class O
         {
-            public int no { get; set; }
+            public int No { get; set; }
 
-            public string name { get; set; }
+            public string Name { get; set; }
         }
     }
 }
