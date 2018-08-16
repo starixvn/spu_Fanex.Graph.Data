@@ -16,7 +16,7 @@ namespace TestConsole
                 .RegisterCommandExecutor(new Neo4jExecutor())
                 .Run();
 
-            var data = DbSessionFactory.Query<O>("b");
+            var data = DbSessionFactory.Execute<O>("b");
 
             foreach (var item in data)
             {

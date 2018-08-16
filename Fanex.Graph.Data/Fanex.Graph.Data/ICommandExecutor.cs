@@ -4,10 +4,10 @@
 
     public interface ICommandExecutor<TDriver>
     {
-        IEnumerable<T> Query<T>(TDriver driver, string command, object parameters = null);
+        IEnumerable<T> Execute<T>(TDriver driver, string command, object parameters = null);
 
-        void Query(TDriver driver, string command, object parameters = null);
+        void Execute(TDriver driver, string command, object parameters = null);
 
-        T QuerySingle<T>(TDriver driver, string command, object parameters = null);
+        T ExecuteSingle<T>(TDriver driver, string command, object parameters = null);
     }
 }

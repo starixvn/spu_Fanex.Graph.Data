@@ -7,7 +7,7 @@ namespace Fanex.Graph.Data.Neo4j
 {
     public class Neo4jExecutor : ICommandExecutor<IDriver>
     {
-        public IEnumerable<T> Query<T>(IDriver driver, string command, object parameters = null)
+        public IEnumerable<T> Execute<T>(IDriver driver, string command, object parameters = null)
         {
             using (var session = driver.Session())
             {
@@ -20,7 +20,7 @@ namespace Fanex.Graph.Data.Neo4j
             }
         }
 
-        public void Query(IDriver driver, string command, object parameters = null)
+        public void Execute(IDriver driver, string command, object parameters = null)
         {
             using (var session = driver.Session())
             {
@@ -28,7 +28,7 @@ namespace Fanex.Graph.Data.Neo4j
             }
         }
 
-        public T QuerySingle<T>(IDriver driver, string command, object parameters = null)
+        public T ExecuteSingle<T>(IDriver driver, string command, object parameters = null)
         {
             using (var session = driver.Session())
             {
