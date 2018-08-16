@@ -1,0 +1,161 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Xml.Linq;
+
+namespace Fanex.Graph.Data
+{
+    public class DbSessionFactory
+    {
+        private static IDictionary<string, string> configs = new Dictionary<string, string>();
+
+        private static IDictionary<string, GraphSetting> settings = new Dictionary<string, GraphSetting>();
+
+        private static IDriverFactory driverFactory;
+
+        private static IDictionary<Type, ICommandBuilder> builders = new Dictionary<Type, ICommandBuilder>();
+
+        private static IDictionary<Type, dynamic> excutors = new Dictionary<Type, dynamic>();
+
+        private static IDictionary<string, (Type type, dynamic driver)> drivers;
+
+        public DbSessionFactory RegisterConfigs(params string[] keys)
+        {
+            foreach (var key in keys)
+            {
+                configs.Add(key, ConfigurationManager.AppSettings[key]);
+            }
+
+            return this;
+        }
+
+        public DbSessionFactory RegisterXmlFile(string dir)
+        {
+            var files = Directory.GetFiles(Utilities.ResolvePath(dir), "*.xml");
+
+            foreach (var file in files)
+            {
+                var document = XDocument.Load(file);
+
+                foreach (var setting in document.Elements("GraphSetting"))
+                {
+                    var key = setting.Attribute("Key").Value;
+                    var spName = setting.Attribute("SpName").Value;
+                    var db = setting.Attribute("DbName").Value;
+
+                    if (key is null)
+                    {
+                        throw new InvalidOperationException($"There's no Key attribute for {setting}");
+                    }
+
+                    if (spName is null)
+                    {
+                        throw new InvalidOperationException($"There's no SpName attribute for {setting}");
+                    }
+
+                    if (db is null)
+                    {
+                        throw new InvalidOperationException($"There's no DbName attribute for {setting}");
+                    }
+
+                    settings.Add(setting.Attribute("Key").Value, new GraphSetting
+                    {
+                        DbKey = db,
+                        SpKey = key,
+                        SpName = spName
+                    });
+                }
+            }
+
+            return this;
+        }
+
+        public DbSessionFactory RegisterDriverFactory(IDriverFactory factory)
+        {
+            driverFactory = factory;
+
+            return this;
+        }
+
+        public DbSessionFactory RegisterCommandBuilder(ICommandBuilder commandBuilder)
+        {
+            var t = commandBuilder.DriverType;
+
+            if (builders.ContainsKey(t))
+            {
+                builders[t] = commandBuilder;
+            }
+            else
+            {
+                builders.Add(t, commandBuilder);
+            }
+
+            return this;
+        }
+
+        public DbSessionFactory RegisterCommandExecutor<TDriver>(ICommandExecutor<TDriver> commandExecutor)
+        {
+            var t = typeof(TDriver);
+
+            if (excutors.ContainsKey(t))
+            {
+                excutors[t] = commandExecutor;
+            }
+            else
+            {
+                excutors.Add(t, commandExecutor);
+            }
+
+            return this;
+        }
+
+        public void Run()
+        {
+            drivers = configs.ToDictionary(kv => kv.Key, kv => driverFactory.GetDriver(kv.Value));
+            configs = null;
+        }
+
+        public static DbSessionFactory Init() => new DbSessionFactory();
+
+        public static IEnumerable<T> Query<T>(string key, object parameters = null)
+        {
+            var setting = settings[key];
+
+            var (type, driver) = drivers[setting.DbKey];
+            var builder = builders[type];
+            var executor = excutors[type];
+
+            var cmd = builder.BuildCommand(setting);
+
+            return (IEnumerable<T>)executor.Query<T>(driver, cmd, parameters);
+        }
+
+        public static void Query(string key, object parameters = null)
+        {
+            var setting = settings[key];
+
+            var driver = drivers[setting.DbKey];
+            var builder = builders[driver.GetType()];
+            var executor = excutors[driver.GetType()];
+
+            var cmd = builder.BuildCommand(setting);
+
+            executor.Query(driver, cmd, parameters);
+        }
+
+        public static T QuerySingle<T>(string key, object parameters)
+        {
+            var setting = settings[key];
+
+            var driver = drivers[setting.DbKey];
+            var builder = builders[driver.GetType()];
+            var executor = excutors[driver.GetType()];
+
+            var cmd = builder.BuildCommand(setting);
+
+            return executor.QuerySingle<T>(driver, cmd, parameters);
+        }
+    }
+}
