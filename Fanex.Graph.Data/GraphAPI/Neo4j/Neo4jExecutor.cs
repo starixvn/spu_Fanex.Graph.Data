@@ -1,9 +1,10 @@
-﻿using Neo4j.Driver.V1;
+﻿using Fanex.Graph.Data;
+using Neo4j.Driver.V1;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Fanex.Graph.Data.Neo4j
+namespace GraphAPI.Neo4j
 {
     public class Neo4jExecutor : ICommandExecutor<IDriver>
     {
@@ -41,6 +42,16 @@ namespace Fanex.Graph.Data.Neo4j
             }
         }
 
-        private T ParseRecord<T>(IRecord record) => JObject.FromObject(record.Values).ToObject<T>();
+        private T ParseRecord<T>(IRecord record)
+        {
+            var t = typeof(T);
+
+            if (t.IsPrimitive || t == typeof(string))
+            {
+                return record[0].As<T>();
+            }
+
+            return JObject.FromObject(record.Values).ToObject<T>();
+        }
     }
 }

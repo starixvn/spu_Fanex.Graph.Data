@@ -1,7 +1,8 @@
-﻿using Neo4j.Driver.V1;
+﻿using Fanex.Graph.Data;
+using Neo4j.Driver.V1;
 using System;
 
-namespace Fanex.Graph.Data.Neo4j
+namespace GraphAPI.Neo4j
 {
     public class Neo4jDriverFactory : IDriverFactory
     {

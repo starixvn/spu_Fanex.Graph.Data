@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace Fanex.Graph.Data
@@ -9,11 +10,13 @@ namespace Fanex.Graph.Data
         {
             if (path.StartsWith("~"))
             {
-                var location = Assembly.GetExecutingAssembly().Location;
+                var location = Assembly.GetExecutingAssembly().CodeBase;
 
-                var file = new FileInfo(location);
+                var file = new FileInfo(location.Replace("file:///", ""));
 
-                return path.Replace("~", file.Directory.FullName);
+                var result = file.Directory.Parent.GetDirectories(path.Replace("~/", ""))[0];
+
+                return result.FullName;
             }
 
             return path;

@@ -1,6 +1,8 @@
-using Fanex.Graph.Data;
-using Fanex.Graph.Data.Neo4j;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace TestConsole
 {
@@ -8,29 +10,24 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
-            DbSessionFactory.Init()
-                .RegisterConfigs("db1")
-                .RegisterXmlFile("~/data")
-                .RegisterDriverFactory(new Neo4jDriverFactory())
-                .RegisterCommandBuilder(new Neo4jCommandBuilder("~/script"))
-                .RegisterCommandExecutor(new Neo4jExecutor())
-                .Run();
-
-            var data = DbSessionFactory.Execute<O>("b");
-
-            foreach (var item in data)
-            {
-                Console.WriteLine($"no: {item.No}, name: {item.Name}");
-            }
+            var data = Post<IEnumerable<int[]>>("http://localhost:51974/api/MiddleService/GroupForCustId", new HashSet<int> { 31675706, 31939885, 31936354, 31626123 }).Result.ToArray();
 
             Console.ReadKey();
         }
 
-        public class O
+        public static async Task<TResult> Post<TResult>(string url, object param)
         {
-            public int No { get; set; }
+            using (var web = new HttpClient())
+            {
+                var response = await web.PostAsJsonAsync(url, param).ConfigureAwait(false);
 
-            public string Name { get; set; }
+                if (!response.IsSuccessStatusCode)
+                {
+                    return default(TResult);
+                }
+
+                return await response.Content.ReadAsAsync<TResult>().ConfigureAwait(false);
+            }
         }
     }
 }

@@ -37,6 +37,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,6 +60,10 @@
     <ProjectReference Include="..\Fanex.Graph.Data\Fanex.Graph.Data.csproj">
       <Project>{242336ed-fb0f-4246-8081-abc7909a9508}</Project>
       <Name>Fanex.Graph.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphAPI\GraphAPI.csproj">
+      <Project>{156ddb98-50bb-4f92-89e3-cff208719c2b}</Project>
+      <Name>GraphAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

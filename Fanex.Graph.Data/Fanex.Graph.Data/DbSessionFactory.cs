@@ -39,7 +39,7 @@ namespace Fanex.Graph.Data
             {
                 var document = XDocument.Load(file);
 
-                foreach (var setting in document.Elements("GraphSetting"))
+                foreach (var setting in document.Descendants("GraphSetting"))
                 {
                     var key = setting.Attribute("Key").Value;
                     var spName = setting.Attribute("SpName").Value;
@@ -138,7 +138,7 @@ namespace Fanex.Graph.Data
 
             var cmd = builder.BuildCommand(setting);
 
-            return (IEnumerable<T>)executor.Query<T>(driver, cmd, parameters);
+            return (IEnumerable<T>)executor.Execute<T>(driver, cmd, parameters);
         }
 
         public static void Execute(string key, object parameters = null)
@@ -151,7 +151,7 @@ namespace Fanex.Graph.Data
 
             var cmd = builder.BuildCommand(setting);
 
-            executor.Query(driver, cmd, parameters);
+            executor.Execute(driver, cmd, parameters);
         }
 
         public static T ExecuteSingle<T>(string key, object parameters)
@@ -164,7 +164,7 @@ namespace Fanex.Graph.Data
 
             var cmd = builder.BuildCommand(setting);
 
-            return (T)executor.QuerySingle<T>(driver, cmd, parameters);
+            return (T)executor.ExecuteSingle<T>(driver, cmd, parameters);
         }
     }
 }

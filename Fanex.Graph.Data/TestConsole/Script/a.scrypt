@@ -1,2 +1,3 @@
-﻿match (f:force)
-return 1 as no, f.name as name
+﻿match shortestPath((c:Customers)-[:ass*]->(c1:Customers))
+where c.CustId = "31675706" and c1.CustId in ["31939885", "31936354","31626123"]
+return c1.CustId as id
