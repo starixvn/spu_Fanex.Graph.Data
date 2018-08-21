@@ -10,7 +10,7 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
-            var data = Post<IEnumerable<int[]>>("http://localhost:51974/api/MiddleService/GroupForCustId", new HashSet<int> { 31675706, 31939885, 31936354, 31626123 }).Result.ToArray();
+            var data = Post("http://localhost:51974/api/MiddleService/GroupForCustId");
 
             Console.ReadKey();
         }
@@ -27,6 +27,14 @@ namespace TestConsole
                 }
 
                 return await response.Content.ReadAsAsync<TResult>().ConfigureAwait(false);
+            }
+        }
+
+        public static async Task Post(string url, object param)
+        {
+            using (var web = new HttpClient())
+            {
+                await web.PostAsJsonAsync(url, param).ConfigureAwait(false);
             }
         }
     }
