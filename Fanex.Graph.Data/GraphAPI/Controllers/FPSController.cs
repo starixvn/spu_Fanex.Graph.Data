@@ -1,4 +1,6 @@
 ﻿using Fanex.Graph.Data;
+using GraphAPI.Models;
+using System.Collections.Generic;
 using System.Web.Http;
 
 namespace GraphAPI.Controllers
@@ -8,7 +10,14 @@ namespace GraphAPI.Controllers
         [HttpPost]
         public void AddAssociation(object parameters)
         {
-            DbSessionFactory.Execute("", parameters);
+            DbSessionFactory.Execute("AddAssociation", parameters);
+        }
+
+
+        [HttpGet]
+        public IEnumerable<A> Test()
+        {
+            return DbSessionFactory.Execute<A>("a");
         }
     }
 }

@@ -10,7 +10,7 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
-            var data = Post("http://localhost:51974/api/MiddleService/GroupForCustId");
+            var data = Post("http://localhost:51974/api/MiddleService/GroupForCustId", null);
 
             Console.ReadKey();
         }

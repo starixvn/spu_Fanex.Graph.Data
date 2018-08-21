@@ -1,3 +1,3 @@
-﻿match shortestPath((c:Customers)-[:ass*]->(c1:Customers))
-where c.CustId = $CustId and c1.CustId in $CustIdList
-return c1.CustId as id
+﻿MATCH SHORTESTPATH((c:Customers)-[:ass*]->(c1:Customers))
+WHERE c.CustId = $CustId AND c1.CustId IN $CustIdList
+RETURN c1.CustId as id

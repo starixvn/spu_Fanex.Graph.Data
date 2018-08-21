@@ -1,0 +1,5 @@
+﻿MATCH (d:Devices {DeviceId: $DeviceId})<-[:USED]-(c:Customers)
+CREATE
+	(n:Customers {CustId: $FpsAccountId, Username: $FpsUsername})-[:USED]->(d),
+    (n)-[:ass]->(c),
+    (c)-[:ass]->(n)

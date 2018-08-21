@@ -3,4 +3,8 @@
   <Function Name="MiddleSerivce">
     <GraphSetting Key="GroupCustomer" SpName="GroupCustomer" DbName="DB.MiddleService"/>
   </Function>
+  <Function Name="FPS">
+    <GraphSetting Key="a" SpName="a" DbName="DB.MiddleService"/>
+    <GraphSetting Key="AddAssociation" SpName="AddAssociation" DbName="DB.MiddleService"/>
+  </Function>
 </Functions>
