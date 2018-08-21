@@ -22,9 +22,10 @@
 
                 var grouped = DbSessionFactory.Execute<int>(MiddleSerivce.GroupCustomer, new { CustId = key.ToString(), CustIdList = ids.Select(a => a.ToString()) });
 
-                var set = new HashSet<int>(grouped);
-
-                set.Add(key);
+                var set = new HashSet<int>(grouped)
+                {
+                    key
+                };
 
                 q.Enqueue(set);
 
