@@ -1,4 +1,5 @@
 ﻿using Fanex.Graph.Data;
+using Fanex.Logging;
 using GraphAPI.Neo4j;
 using System.Web.Http;
 
@@ -17,6 +18,13 @@ namespace GraphAPI
                 .RegisterCommandBuilder(new Neo4jCommandBuilder("~/App_Data/scripts/"))
                 .RegisterCommandExecutor(new Neo4jExecutor())
                 .Run();
+        }
+
+        protected void Application_Error()
+        {
+            var ex = Server.GetLastError();
+
+            Logger.Log.Error(ex.Message, ex);
         }
     }
 }
