@@ -10,7 +10,10 @@ namespace GraphAPI.Neo4j
         {
             var configs = config.Split(';');
 
-            return (typeof(IDriver), GraphDatabase.Driver(configs[0], AuthTokens.Basic(configs[1], configs[2])));
+            return (typeof(IDriver), GraphDatabase.Driver(configs[0], AuthTokens.Basic(configs[1], configs[2]), new Config
+            {
+                EncryptionLevel = EncryptionLevel.None
+            }));
         }
     }
 }
