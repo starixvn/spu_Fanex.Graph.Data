@@ -145,9 +145,9 @@ namespace Fanex.Graph.Data
         {
             var setting = settings[key];
 
-            var driver = drivers[setting.DbKey];
-            var builder = builders[driver.GetType()];
-            var executor = excutors[driver.GetType()];
+            var (type, driver) = drivers[setting.DbKey];
+            var builder = builders[type];
+            var executor = excutors[type];
 
             var cmd = builder.BuildCommand(setting);
 
@@ -158,9 +158,9 @@ namespace Fanex.Graph.Data
         {
             var setting = settings[key];
 
-            var driver = drivers[setting.DbKey];
-            var builder = builders[driver.GetType()];
-            var executor = excutors[driver.GetType()];
+            var (type, driver) = drivers[setting.DbKey];
+            var builder = builders[type];
+            var executor = excutors[type];
 
             var cmd = builder.BuildCommand(setting);
 

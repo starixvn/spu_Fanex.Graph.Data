@@ -1,3 +1,0 @@
-﻿match (c:Customers)
-return c.CustId as id, {a: 1, b: 2} as o
-limit 100

@@ -10,7 +10,9 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
-            var data = Post("http://localhost:51974/api/MiddleService/GroupForCustId", null);
+            var data = Post("http://localhost:51974/api/FPS/AddAssociation", new { DeviceId = 100, FpsAccountId= 6969, FpsUsername="Simon" });
+
+            Task.WaitAll(data);
 
             Console.ReadKey();
         }
@@ -34,7 +36,7 @@ namespace TestConsole
         {
             using (var web = new HttpClient())
             {
-                await web.PostAsJsonAsync(url, param).ConfigureAwait(false);
+                var response = await web.PostAsJsonAsync(url, param).ConfigureAwait(false);
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 
 namespace GraphAPI
 {
@@ -19,6 +20,8 @@ namespace GraphAPI
             );
 
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+
+            config.Services.Replace(typeof(IExceptionLogger), new ExceptionLogger());
         }
     }
 }

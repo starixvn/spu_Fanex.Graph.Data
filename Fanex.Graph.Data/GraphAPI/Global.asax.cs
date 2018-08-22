@@ -19,12 +19,5 @@ namespace GraphAPI
                 .RegisterCommandExecutor(new Neo4jExecutor())
                 .Run();
         }
-
-        protected void Application_Error()
-        {
-            var ex = Server.GetLastError();
-
-            Logger.Log.Error(ex.Message, ex);
-        }
     }
 }
