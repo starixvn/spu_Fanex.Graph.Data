@@ -33,7 +33,7 @@ namespace Fanex.Graph.Data
 
         public DbSessionFactory RegisterXmlFile(string dir)
         {
-            var files = Directory.GetFiles(Utilities.ResolvePath(dir), "*.xml");
+            var files = Directory.GetFiles(Utilities.ResolvePath(dir), "*.xml", SearchOption.AllDirectories);
 
             foreach (var file in files)
             {

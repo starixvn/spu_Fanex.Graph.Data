@@ -14,7 +14,7 @@ namespace GraphAPI.Neo4j
         public Neo4jCommandBuilder(string scriptDir, string extension = "scrypt")
         {
             spDict =
-                Directory.GetFiles(Utilities.ResolvePath(scriptDir), $"*.{extension}")
+                Directory.GetFiles(Utilities.ResolvePath(scriptDir), $"*.{extension}", SearchOption.AllDirectories)
                 .Select(f => new FileInfo(f))
                 .ToDictionary(f => f.Name.Replace($".{extension}", ""), f =>
                 {

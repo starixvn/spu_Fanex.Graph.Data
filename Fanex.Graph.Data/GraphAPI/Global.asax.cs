@@ -15,7 +15,7 @@ namespace GraphAPI
                 .RegisterConfigs("DB.MiddleService")
                 .RegisterXmlFile("~/App_Data")
                 .RegisterDriverFactory(new Neo4jDriverFactory())
-                .RegisterCommandBuilder(new Neo4jCommandBuilder("~/App_Data/scripts/"))
+                .RegisterCommandBuilder(new Neo4jCommandBuilder("~/App_Data/scripts"))
                 .RegisterCommandExecutor(new Neo4jExecutor())
                 .Run();
         }

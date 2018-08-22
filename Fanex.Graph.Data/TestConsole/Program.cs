@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -10,7 +9,17 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
-            var data = Post("http://localhost:51974/api/FPS/AddAssociation", new { DeviceId = 100, FpsAccountId= 6969, FpsUsername="Simon" });
+            var data = Post<IEnumerable<int[]>>("http://localhost:51974/api/MiddleService/GroupForCustId", new[] { 31896118,
+                    32050611,
+                    32050228,
+                    32050100,
+                    32049784,
+                    32042604,
+                    31643703,
+                    32042302,
+                    32042074,
+                    32041879,
+                    32041853});
 
             Task.WaitAll(data);
 

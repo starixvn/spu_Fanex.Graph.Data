@@ -20,7 +20,7 @@
 
                 ids.Remove(key);
 
-                var grouped = DbSessionFactory.Execute<int>(MiddleSerivce.GroupCustomer, new { CustId = key.ToString(), CustIdList = ids.Select(a => a.ToString()) });
+                var grouped = DbSessionFactory.Execute<int>(MiddleSerivce.GroupCustomer, new { CustId = key, CustIdList = ids });
 
                 var set = new HashSet<int>(grouped)
                 {
