@@ -9,17 +9,7 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
-            var data = Post<IEnumerable<int[]>>("http://localhost:51974/api/MiddleService/GroupForCustId", new[] { 31896118,
-                    32050611,
-                    32050228,
-                    32050100,
-                    32049784,
-                    32042604,
-                    31643703,
-                    32042302,
-                    32042074,
-                    32041879,
-                    32041853});
+            var data = Post<IEnumerable<int[]>>("http://ha.nexdev.net:7721/api/MiddleService/GroupForCustId", new[] { 32050596, 32041810 });
 
             Task.WaitAll(data);
 

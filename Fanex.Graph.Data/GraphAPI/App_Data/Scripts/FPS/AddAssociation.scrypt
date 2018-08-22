@@ -1,5 +1,8 @@
-﻿MATCH (c1:Customers {CustId: $FpsAccountId, Username: $FpsUsername}),(d:Devices {DeviceId: $DeviceId})<-[:USED]-(c:Customers)
-CREATE UNIQUE
-	(c1)-[:USED]->(d),
+﻿MERGE (c:Customers {CustId: $FpsAccountId, Username: $FpsUsername})
+MERGE (d:Devices {DeviceId: $DeviceId})
+WITH c,d
+MATCH (d)<-[:USED]-(c1:Customers)
+CREATE 
+	(c)-[:ASSOCIATED]->(c1),
     (c1)-[:ASSOCIATED]->(c),
-	(c1)<-[:ASSOCIATED]-(c)
+    (c)-[:USED]->(d)
