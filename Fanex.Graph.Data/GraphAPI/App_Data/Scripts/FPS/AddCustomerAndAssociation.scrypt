@@ -1,0 +1,7 @@
+﻿MERGE (cus:Customers{CustId:$CustId, Username:$Username})
+MERGE (dev:Devices{DeviceId:$DeviceId})
+MERGE (cus) -[:USED]-> (dev)
+WITH cus,dev
+MATCH (cus) -[:USED]-> (dev) <-[:USED]- (cus2:Customers)
+MERGE (cus) -[:ASSOCIATED]-> (cus2)
+MERGE (cus) <-[:ASSOCIATED]- (cus2)

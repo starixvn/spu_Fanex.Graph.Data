@@ -1,8 +1,0 @@
-﻿MERGE (c:Customers {CustId: $FpsAccountId, Username: $FpsUsername})
-MERGE (d:Devices {DeviceId: $DeviceId})
-WITH c,d
-MATCH (d)<-[:USED]-(c1:Customers)
-CREATE 
-	(c)-[:ASSOCIATED]->(c1),
-    (c1)-[:ASSOCIATED]->(c),
-    (c)-[:USED]->(d)

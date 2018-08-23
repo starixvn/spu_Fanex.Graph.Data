@@ -1,5 +1,5 @@
 ﻿using Fanex.Graph.Data;
-using GraphAPI.Models;
+using GraphAPI.Criteria;
 using System.Web.Http;
 
 namespace GraphAPI.Controllers
@@ -7,9 +7,9 @@ namespace GraphAPI.Controllers
     public class FPSController : ApiController
     {
         [HttpPost]
-        public void AddAssociation(Association parameters)
+        public void AddAssociation(AddCustomerAndAssociationCriteria criteria)
         {
-            DbSessionFactory.Execute("AddAssociation", parameters);
+            DbSessionFactory.Execute("AddCustomerAndAssociation", criteria);
         }
     }
 }

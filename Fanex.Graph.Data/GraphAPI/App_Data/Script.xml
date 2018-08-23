@@ -5,6 +5,6 @@
   </Function>
   <Function Name="FPS">
     <GraphSetting Key="a" SpName="a" DbName="DB.MiddleService"/>
-    <GraphSetting Key="AddAssociation" SpName="AddAssociation" DbName="DB.MiddleService"/>
+    <GraphSetting Key="AddCustomerAndAssociation" SpName="AddCustomerAndAssociation" DbName="DB.MiddleService"/>
   </Function>
 </Functions>
