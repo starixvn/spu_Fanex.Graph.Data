@@ -1,4 +1,4 @@
-﻿MERGE (cus:Customers{CustId:$CustId, Username:$Username})
+﻿MERGE (cus:Customers{CustId:$CustId, Username:$Username, Username2:$Username2, RoleId:$RoleId, CurrencyId:$CurrencyId, CurrencyName:$CurrencyName, SubscriberId:$SubscriberId, FpsAccountId:$FpsAccountId, IsDeposit:$IsDeposit, CreatedDate:$CreatedDate})
 MERGE (dev:Devices{DeviceId:$DeviceId})
 MERGE (cus) -[:USED]-> (dev)
 WITH cus,dev

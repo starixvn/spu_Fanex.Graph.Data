@@ -1,18 +1,13 @@
-﻿  
-  
- 
-
-
-namespace GraphAPI
+﻿namespace GraphAPI
 {
-            public static class MiddleSerivce
-        {
-                            public const string GroupCustomer = "GroupCustomer";
-                    }
-            public static class FPS
-        {
-                            public const string a = "a";
-                            public const string AddCustomerAndAssociation = "AddCustomerAndAssociation";
-                    }
+    public static class MiddleSerivce
+    {
+        public const string GroupCustomer = "GroupCustomer";
     }
+    public static class FPS
+    {
+        public const string a = "a";
+        public const string AddCustomerAndAssociation = "AddCustomerAndAssociation";
+    }
+}
 
