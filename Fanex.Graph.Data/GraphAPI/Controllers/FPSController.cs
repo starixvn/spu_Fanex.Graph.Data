@@ -9,7 +9,7 @@ namespace GraphAPI.Controllers
         [HttpPost]
         public void AddAssociation(AddCustomerAndAssociationCriteria criteria)
         {
-            DbSessionFactory.Execute("AddCustomerAndAssociation", criteria);
+            DbSessionFactory.Execute(FPS.AddCustomerAndAssociation, criteria);
         }
     }
 }

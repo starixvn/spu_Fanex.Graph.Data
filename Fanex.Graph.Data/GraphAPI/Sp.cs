@@ -9,5 +9,10 @@ namespace GraphAPI
         {
                             public const string GroupCustomer = "GroupCustomer";
                     }
+            public static class FPS
+        {
+                            public const string a = "a";
+                            public const string AddCustomerAndAssociation = "AddCustomerAndAssociation";
+                    }
     }
 
