@@ -1,3 +1,3 @@
-﻿MATCH SHORTESTPATH((c:Customers)-[:ASSOCIATED*]->(c1:Customers))
+﻿MATCH SHORTESTPATH((c:Customers)-[:ASSOCIATED*]-(c1:Customers))
 WHERE c.CustId = $CustId AND c1.CustId IN $CustIdList
 RETURN c1.CustId as id
