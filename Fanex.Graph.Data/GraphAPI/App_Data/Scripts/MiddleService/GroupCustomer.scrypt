@@ -1,3 +1,5 @@
-﻿MATCH SHORTESTPATH((c:Customers)-[:ASSOCIATED*]-(c1:Customers))
-WHERE c.CustId = $CustId AND c1.CustId IN $CustIdList
-RETURN c1.CustId as id
+﻿call algo.unionFind.stream("Customer","ASSOCIATED",{})
+yield nodeId, setId
+match (c:Customers)
+where id(c) = nodeId and c.CustId IN $CustIdList
+return c.CustId as CustId, setId as GroupId

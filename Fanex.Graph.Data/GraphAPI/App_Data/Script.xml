@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Functions>
   <Function Name="MiddleSerivce">
-    <GraphSetting Key="GroupCustomer" SpName="GroupCustomer" DbName="DB.MiddleService"/>
+    <GraphSetting Key="GroupCustomer" SpName="GroupCustomer" DbName="DB.MiddleService" />
   </Function>
   <Function Name="FPS">
-    <GraphSetting Key="a" SpName="a" DbName="DB.MiddleService"/>
-    <GraphSetting Key="AddCustomerAndAssociation" SpName="AddCustomerAndAssociation" DbName="DB.MiddleService"/>
+    <GraphSetting Key="a" SpName="a" DbName="DB.MiddleService" />
+    <GraphSetting Key="AddCustomerAndAssociation" SpName="AddCustomerAndAssociation" DbName="DB.MiddleService" />
   </Function>
 </Functions>

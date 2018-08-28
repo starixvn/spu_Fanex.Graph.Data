@@ -1,6 +1,7 @@
 ﻿namespace GraphAPI.Controllers
 {
     using Fanex.Graph.Data;
+    using GraphAPI.Model;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
@@ -10,29 +11,9 @@
         [HttpPost]
         public IEnumerable<object> GroupForCustId(IEnumerable<int> custIds)
         {
-            var ids = new HashSet<int>(custIds);
-
-            var q = new Queue<object>();
-
-            while (ids.Count != 0)
-            {
-                var key = ids.First();
-
-                ids.Remove(key);
-
-                var grouped = DbSessionFactory.Execute<int>(MiddleSerivce.GroupCustomer, new { CustId = key, CustIdList = ids });
-
-                var set = new HashSet<int>(grouped)
-                {
-                    key
-                };
-
-                q.Enqueue(set);
-
-                ids.ExceptWith(set);
-            }
-
-            return q;
+            return DbSessionFactory
+                .Execute<Group>(MiddleSerivce.GroupCustomer, new { CustIdList = custIds })
+                .GroupBy(g => g.GroupId, g => g.CustId);
         }
     }
 }

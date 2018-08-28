@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -9,7 +10,9 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
-            var data = Post<IEnumerable<int[]>>("http://ha.nexdev.net:7721/api/MiddleService/GroupForCustId", new[] { 32050596, 32041810 });
+            var arr = ReadFile(@"C:\Users\simon.huynh\Desktop\export.csv");
+
+            var data = Post<IEnumerable<Group>>("http://localhost:51974/api/MiddleService/GroupCustId", arr);
 
             Task.WaitAll(data);
 
@@ -37,6 +40,28 @@ namespace TestConsole
             {
                 var response = await web.PostAsJsonAsync(url, param).ConfigureAwait(false);
             }
+        }
+
+        public static IEnumerable<int> ReadFile(string filePath)
+        {
+            using (var reader = new StreamReader(filePath))
+            {
+                var q = new Queue<int>();
+
+                while (!reader.EndOfStream)
+                {
+                    q.Enqueue(int.Parse(reader.ReadLine()));
+                }
+
+                return q;
+            }
+        }
+
+        public class Group
+        {
+            public int CustId { get; set; }
+
+            public int GroupId { get; set; }
         }
     }
 }

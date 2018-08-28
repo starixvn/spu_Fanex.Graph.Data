@@ -9,6 +9,10 @@ namespace GraphAPI
     {
         public Task LogAsync(ExceptionLoggerContext context, CancellationToken cancellationToken)
         {
+#if DEBUG
+            throw context.Exception;
+#endif
+
             Logger.Log.Error(context.Exception.Message, context.Exception);
 
             return Task.CompletedTask;

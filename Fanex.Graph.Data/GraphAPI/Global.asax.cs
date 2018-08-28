@@ -1,5 +1,4 @@
 ﻿using Fanex.Graph.Data;
-using Fanex.Logging;
 using GraphAPI.Neo4j;
 using System.Web.Http;
 

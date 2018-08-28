@@ -124,6 +124,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Criteria\AddCustomerAndAssociationCriteria.cs" />
+    <Compile Include="Model\Group.cs" />
     <Compile Include="Neo4j\Neo4jCommandBuilder.cs" />
     <Compile Include="Neo4j\Neo4jDriverFactory.cs" />
     <Compile Include="Neo4j\Neo4jExecutor.cs" />
