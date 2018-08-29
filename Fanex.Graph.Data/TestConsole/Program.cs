@@ -12,7 +12,7 @@ namespace TestConsole
         {
             var arr = ReadFile(@"C:\Users\simon.huynh\Desktop\export.csv");
 
-            var data = Post<IEnumerable<Group>>("http://localhost:51974/api/MiddleService/GroupCustId", arr);
+            var data = Post<IEnumerable<int[]>>("http://localhost:51974/api/MiddleService/GroupForCustId", arr);
 
             Task.WaitAll(data);
 

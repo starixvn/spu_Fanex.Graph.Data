@@ -1,5 +1,5 @@
-﻿call algo.unionFind.stream("Customer","ASSOCIATED",{})
-yield nodeId, setId
-match (c:Customers)
-where id(c) = nodeId and c.CustId IN $CustIdList
-return c.CustId as CustId, setId as GroupId
+﻿CALL algo.unionFind.stream("Customer","ASSOCIATED", { concurrency: 8 })
+YIELD nodeId, setId
+MATCH (c:Customers)
+WHERE ID(c) = nodeId AND c.CustId IN $CustIdList
+RETURN c.CustId AS CustId, setId AS GroupId
