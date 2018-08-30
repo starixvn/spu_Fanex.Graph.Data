@@ -21,7 +21,9 @@ namespace GraphAPI
 
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 
+#if !DEBUG
             config.Services.Replace(typeof(IExceptionLogger), new ExceptionLogger());
+#endif
         }
     }
 }
