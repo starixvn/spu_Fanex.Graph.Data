@@ -23,7 +23,5 @@ namespace GraphAPI.Criteria
         public int FpsAccountId { get; set; }
 
         public int IsDeposit { get; set; }
-
-        public DateTime CreatedDate { get; set; }
     }
 }
