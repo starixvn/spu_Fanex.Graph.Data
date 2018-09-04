@@ -3,4 +3,5 @@ MERGE (dev:Devices{DeviceId:$DeviceId})
 MERGE (cus) -[:USED]-> (dev)
 WITH cus,dev
 MATCH (cus) -[:USED]-> (dev) <-[:USED]- (cus2:Customers)
+WHERE NOT EXISTS((cus)-[:ASSOCIATED]-(cus2))
 MERGE (cus) -[:ASSOCIATED]-> (cus2)
