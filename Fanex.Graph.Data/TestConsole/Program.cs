@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
-            var arr = ReadFile(@"C:\Users\simon.huynh\Desktop\export.csv");
+            var arr = ReadFile(@"C:\Users\simon.huynh\Desktop\result500.csv").Distinct().ToArray();
 
             var data = Post<IEnumerable<int[]>>("http://localhost:51974/api/MiddleService/GroupForCustId", arr);
 
