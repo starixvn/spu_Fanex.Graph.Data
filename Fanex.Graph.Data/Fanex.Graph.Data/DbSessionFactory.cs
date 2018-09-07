@@ -154,7 +154,7 @@ namespace Fanex.Graph.Data
             executor.Execute(driver, cmd, parameters);
         }
 
-        public static T ExecuteSingle<T>(string key, object parameters)
+        public static T ExecuteSingle<T>(string key, object parameters = null)
         {
             var setting = settings[key];
 

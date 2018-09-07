@@ -1,3 +1,4 @@
+using GraphAPI.Criteria;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,10 +12,22 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
-            var arr = ReadFile(@"D:\Work\FPS\MiddleService\graphdb\result600.csv").Distinct().ToArray();
+            var arr = new TEst
+            {
+               CurrencyId = 2,
+               CurrencyName = "RM",
+               CustId = 329981,
+               DeviceId = 128,
+               FpsAccountId = 6313,
+               IsDeposit = true,
+               RoleId = 5,
+               SubscriberId = 0,
+               Username = "fpsw_vvsony",
+               Username2 = ""
+            };
 
-            var data = Post<IEnumerable<int[]>>("http://localhost:51974/api/MiddleService/GroupForCustId", arr);
-            var a = string.Join(",", arr);
+            var data = Post("http://localhost:51974/api/FPS/AddAssociation", arr);
+
             Task.WaitAll(data);
 
             Console.ReadKey();
@@ -63,6 +76,29 @@ namespace TestConsole
             public int CustId { get; set; }
 
             public int GroupId { get; set; }
+        }
+
+        public class TEst
+        {
+            public int DeviceId { get; set; }
+
+            public int CustId { get; set; }
+
+            public string Username { get; set; }
+
+            public string Username2 { get; set; }
+
+            public int RoleId { get; set; }
+
+            public int CurrencyId { get; set; }
+
+            public string CurrencyName { get; set; }
+
+            public int SubscriberId { get; set; }
+
+            public int FpsAccountId { get; set; }
+
+            public bool IsDeposit { get; set; }
         }
     }
 }

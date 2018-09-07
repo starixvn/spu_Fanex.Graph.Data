@@ -10,16 +10,17 @@ namespace GraphAPI.Controllers
         [HttpPost]
         public void AddAssociation(AddCustomerAndAssociationCriteria criteria)
         {
-            var groupIds =  DbSessionFactory.Execute<int>(FPS.AddCustomerAndAssociation, criteria).ToArray();
+            var groupIds = DbSessionFactory.Execute<int>(FPS.AddCustomerAndAssociation, criteria);
+
             if (groupIds.Any())
             {
-                var mergeExistingGroupCriteria = new MergeExistingGroupCriteria()
+                var mergeExistingGroupCriteria = new MergeExistingGroupCriteria
                 {
                     GroupIdList = groupIds,
                     CustId = criteria.CustId
                 };
 
-                DbSessionFactory.Execute<int>(FPS.MergeExistingGroup, mergeExistingGroupCriteria);
+                DbSessionFactory.Execute(FPS.MergeExistingGroup, mergeExistingGroupCriteria);
             }
             else
             {

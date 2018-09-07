@@ -1,10 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace GraphAPI.Criteria
 {
     public class MergeExistingGroupCriteria
     {
-        public int[] GroupIdList { get; set; }
+        public IEnumerable<int> GroupIdList { get; set; }
 
         public int CustId { get; set; }
     }
