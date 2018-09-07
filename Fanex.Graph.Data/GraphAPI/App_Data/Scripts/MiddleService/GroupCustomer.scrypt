@@ -1,5 +1,3 @@
-﻿CALL algo.unionFind.stream("Customers","ASSOCIATED", {})
-YIELD nodeId, setId
-MATCH (c:Customers)
-WHERE ID(c) = nodeId AND c.CustId IN $CustIdList
-RETURN c.CustId AS CustId, setId AS GroupId
+﻿MATCH (c:Customers)-[:BELONG_TO]->(g:Group)
+WHERE c.CustId IN $CustIdList
+RETURN c.CustId AS CustId, g.GroupId AS GroupId

@@ -12,8 +12,7 @@
         public IEnumerable<object> GroupForCustId(IEnumerable<int> custIds)
         {
             return DbSessionFactory
-                .Execute<Group>(MiddleSerivce.GroupCustomer, new { CustIdList = custIds })
-                .GroupBy(g => g.GroupId, g => g.CustId);
+                .Execute<Group>(MiddleSerivce.GroupCustomer, new { CustIdList = custIds });
         }
     }
 }
