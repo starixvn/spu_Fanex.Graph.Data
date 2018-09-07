@@ -23,8 +23,12 @@ namespace GraphAPI.Controllers
             }
             else
             {
-                var addGroupCriteria = new AddNewGroupCriteria() { CustId = criteria.CustId };
-                DbSessionFactory.Execute<int>(FPS.AddNewGroup, addGroupCriteria);
+                var directGroup = DbSessionFactory.Execute<int>(FPS.GetDirectGroupCriteria, new { criteria.CustId }).ToArray();
+                if (!directGroup.Any())
+                {
+                    var addGroupCriteria = new AddNewGroupCriteria() { CustId = criteria.CustId };
+                    DbSessionFactory.Execute<int>(FPS.AddNewGroup, addGroupCriteria);
+                }
             }
         }
     }

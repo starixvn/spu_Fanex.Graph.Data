@@ -142,6 +142,7 @@
     <Content Include="App_Data\Scripts\FPS\MergeExistingGroup.scrypt" />
     <Content Include="App_Data\Scripts\FPS\AddCustomerAndAssociation.scrypt" />
     <Content Include="App_Data\Scripts\FPS\AddNewGroup.scrypt" />
+    <Content Include="App_Data\Scripts\FPS\GetDirectGroupCriteria.scrypt" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
