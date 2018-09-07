@@ -1,3 +1,6 @@
-﻿MERGE (cus:Customers{CustId:$CustId, Username:$Username, Username2:$Username2, RoleId:$RoleId, CurrencyId:$CurrencyId, CurrencyName:$CurrencyName, SubscriberId:$SubscriberId, FpsAccountId:$FpsAccountId, IsDeposit:$IsDeposit, CreatedDate:datetime()})
+﻿MERGE (cus:Customers{CustId:$CustId, Username:$Username, Username2:$Username2, RoleId:$RoleId, CurrencyId:$CurrencyId, CurrencyName:$CurrencyName, SubscriberId:$SubscriberId, FpsAccountId:$FpsAccountId, IsDeposit:$IsDeposit})
 MERGE (dev:Devices{DeviceId:$DeviceId})
 MERGE (cus) -[:USED]-> (dev)
+WITH cus
+MATCH (cus)-[:USED]->(:Devices)<-[:USED]-(:Customers)-[:BELONG_TO]->(g:Group)
+RETURN DISTINCT g.GroupId as GroupId

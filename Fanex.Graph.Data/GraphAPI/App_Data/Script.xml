@@ -6,5 +6,7 @@
   <Function Name="FPS">
     <GraphSetting Key="a" SpName="a" DbName="DB.MiddleService" />
     <GraphSetting Key="AddCustomerAndAssociation" SpName="AddCustomerAndAssociation" DbName="DB.MiddleService" />
+    <GraphSetting Key="MergeExistingGroup" SpName="MergeExistingGroup" DbName="DB.MiddleService" />
+    <GraphSetting Key="AddNewGroup" SpName="AddNewGroup" DbName="DB.MiddleService" />
   </Function>
 </Functions>

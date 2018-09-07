@@ -1,5 +1,6 @@
 ﻿using Fanex.Graph.Data;
 using GraphAPI.Criteria;
+using System.Linq;
 using System.Web.Http;
 
 namespace GraphAPI.Controllers
@@ -9,7 +10,22 @@ namespace GraphAPI.Controllers
         [HttpPost]
         public void AddAssociation(AddCustomerAndAssociationCriteria criteria)
         {
-            DbSessionFactory.Execute(FPS.AddCustomerAndAssociation, criteria);
+            var groupIds =  DbSessionFactory.Execute<int>(FPS.AddCustomerAndAssociation, criteria).ToArray();
+            if (groupIds.Any())
+            {
+                var mergeExistingGroupCriteria = new MergeExistingGroupCriteria()
+                {
+                    GroupIdList = groupIds,
+                    CustId = criteria.CustId
+                };
+
+                DbSessionFactory.Execute<int>(FPS.MergeExistingGroup, mergeExistingGroupCriteria);
+            }
+            else
+            {
+                var addGroupCriteria = new AddNewGroupCriteria() { CustId = criteria.CustId };
+                DbSessionFactory.Execute<int>(FPS.AddNewGroup, addGroupCriteria);
+            }
         }
     }
 }

@@ -11,10 +11,10 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
-            var arr = ReadFile(@"C:\Users\simon.huynh\Desktop\result500.csv").Distinct().ToArray();
+            var arr = ReadFile(@"D:\Work\FPS\MiddleService\graphdb\result600.csv").Distinct().ToArray();
 
             var data = Post<IEnumerable<int[]>>("http://localhost:51974/api/MiddleService/GroupForCustId", arr);
-
+            var a = string.Join(",", arr);
             Task.WaitAll(data);
 
             Console.ReadKey();

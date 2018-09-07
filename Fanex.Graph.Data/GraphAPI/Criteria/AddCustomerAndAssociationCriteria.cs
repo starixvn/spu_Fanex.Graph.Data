@@ -8,20 +8,20 @@ namespace GraphAPI.Criteria
 
         public int CustId { get; set; }
 
-        public string Username { get; set; }
+        public string Username { get; set; } = "harvey";
 
-        public string Username2 { get; set; }
+        public string Username2 { get; set; } = "username2";
 
-        public int RoleId { get; set; }
+        public int RoleId { get; set; } = 0;
 
-        public int CurrencyId { get; set; }
+        public int CurrencyId { get; set; } = 0;
 
-        public string CurrencyName { get; set; }
+        public string CurrencyName { get; set; } = "NVD";
 
-        public int SubscriberId { get; set; }
+        public int SubscriberId { get; set; } = 0;
 
-        public int FpsAccountId { get; set; }
+        public int FpsAccountId { get; set; } = 0;
 
-        public int IsDeposit { get; set; }
+        public int IsDeposit { get; set; } = 0;
     }
 }

@@ -1,0 +1,6 @@
+﻿MATCH (g:Group), (cus:Customers {CustId:$CustId})
+WHERE g.GroupId IN $GroupIdList
+WITH cus, COLLECT(distinct g) as nodes
+CALL apoc.refactor.mergeNodes(nodes) 
+YIELD node
+MERGE (cus)-[:BELONG_TO]-> (node)
