@@ -20,6 +20,6 @@
 
         public int FpsAccountId { get; set; }
 
-        public int IsDeposit { get; set; }
+        public bool IsDeposit { get; set; }
     }
 }

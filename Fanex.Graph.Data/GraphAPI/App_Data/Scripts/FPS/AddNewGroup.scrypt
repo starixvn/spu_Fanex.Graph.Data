@@ -1,6 +1,6 @@
-﻿MATCH (g:Group)
-WITH MAX(g.GroupId) + 1 AS groupId
+﻿MATCH p=((cus:Customers {CustId: $CustId})-[:BELONG_TO]->(gx:Group))
+CALL apoc.when(p IS NOT NULL,"MATCH (g:Group) RETURN MAX(g.GroupId) AS groupId","MATCH (g:Group) RETURN MAX(g.GroupId) + 1 AS groupId",{}) YIELD value
+WITH value.groupId as groupId, cus
 MERGE (g:Group {GroupId: groupId})
-WITH g
-MATCH (cus:Customers {CustId: $CustId})
+WITH g, cus
 MERGE (cus)-[:BELONG_TO]->(g)
