@@ -4,3 +4,6 @@ MERGE (cus) -[:USED]-> (dev)
 WITH cus
 MATCH (cus)-[:USED]->(:Devices)<-[:USED]-(:Customers)-[:BELONG_TO]->(g:Group)
 RETURN DISTINCT g.GroupId as GroupId
+UNION 
+MATCH (cus:Customers {CustId:$CustId})-[:BELONG_TO]->(g1:Group)
+RETURN g1.GroupId as GroupId

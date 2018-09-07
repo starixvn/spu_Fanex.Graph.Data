@@ -1,2 +1,0 @@
-﻿MATCH (cus:Customers {CustId: $CustId})-[:BELONG_TO]->(g:Group)
-RETURN DISTINCT g.GroupId as GroupId

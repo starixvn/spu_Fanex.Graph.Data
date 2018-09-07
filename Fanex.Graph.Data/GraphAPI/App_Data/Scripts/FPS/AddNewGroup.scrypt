@@ -1,6 +1,6 @@
-﻿MATCH (g:Group)
-WITH MAX(g.GroupId) + 1 AS groupId
-MERGE (g:Group {GroupId: groupId})
+﻿CREATE (g:Group {CreatedDate: datetime()})
+WITH g
+SET g.GroupId = ID(g)
 WITH g
 MATCH (cus:Customers {CustId: $CustId})
 MERGE (cus)-[:BELONG_TO]->(g)
