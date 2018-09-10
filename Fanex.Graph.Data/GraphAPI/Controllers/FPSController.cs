@@ -25,7 +25,7 @@ namespace GraphAPI.Controllers
             else
             {
                 var addGroupCriteria = new AddNewGroupCriteria() { CustId = criteria.CustId };
-                DbSessionFactory.Execute<int>(FPS.AddNewGroup, addGroupCriteria);
+                DbSessionFactory.Execute(FPS.AddNewGroup, addGroupCriteria);
             }
         }
     }

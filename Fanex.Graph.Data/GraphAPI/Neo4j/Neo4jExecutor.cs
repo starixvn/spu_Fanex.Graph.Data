@@ -17,7 +17,7 @@ namespace GraphAPI.Neo4j
                 {
                     var result = parameters is null ? tx.Run(command) : tx.Run(command, parameters);
 
-                    return result.Select(ParseRecord<T>).ToArray();
+                    return result.Select(ParseRecord<T>);
                 });
             }
         }
@@ -47,7 +47,7 @@ namespace GraphAPI.Neo4j
         {
             var t = typeof(T);
 
-            if (t.IsPrimitive || t == typeof(string))
+            if (t.IsPrimitive || t == typeof(string) || t == typeof(decimal))
             {
                 return record[0].As<T>();
             }
