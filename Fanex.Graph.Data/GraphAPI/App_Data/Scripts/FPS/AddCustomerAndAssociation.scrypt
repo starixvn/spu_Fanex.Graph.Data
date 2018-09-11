@@ -2,8 +2,14 @@
 MERGE (dev:Devices{DeviceId:$DeviceId})
 MERGE (cus) -[:USED]-> (dev)
 WITH cus
-MATCH (cus)-[:USED]->(:Devices)<-[:USED]-(:Customers)-[:BELONG_TO]->(g:Group)
-RETURN DISTINCT g.GroupId as GroupId
-UNION 
-MATCH (cus:Customers {CustId:$CustId})-[:BELONG_TO]->(g1:Group)
-RETURN g1.GroupId as GroupId
+OPTIONAL MATCH (cus)-[:USED]->(:Devices)<-[:USED]-(:Customers)-[:BELONG_TO]->(g:Group)
+OPTIONAL MATCH (cus)-[:BELONG_TO]->(g1)
+WITH cus, COLLECT(g) + COLLECT(g1) as groups
+CALL apoc.do.when(size(groups) = 0, 
+		"CREATE (g:Group) SET g.GroupId = ID(g) RETURN g.GroupId as groupId",
+        "UNWIND $groups as g RETURN g.GroupId as groupId",
+        {groups: groups}) YIELD value
+MATCH (g:Group {GroupId: value.groupId})
+WITH cus, collect(DISTINCT g) AS groups
+CALL apoc.refactor.mergeNodes(groups) YIELD node
+MERGE (cus)-[:BELONG_TO]->(node)
