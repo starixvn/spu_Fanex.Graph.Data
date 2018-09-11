@@ -1,13 +1,14 @@
-﻿MERGE (cus:Customers{CustId:$CustId, Username:$Username, Username2:$Username2, RoleId:$RoleId, CurrencyId:$CurrencyId, CurrencyName:$CurrencyName, SubscriberId:$SubscriberId, FpsAccountId:$FpsAccountId, IsDeposit:$IsDeposit})
-MERGE (dev:Devices{DeviceId:$DeviceId})
+﻿MERGE (cus:Customer{CustId:$CustId, Username:$Username, Username2:$Username2})
+ON CREATE SET cus.RoleId=$RoleId, cus.CurrencyId=$CurrencyId, cus.CurrencyName=$CurrencyName, cus.SubscriberId=$SubscriberId, cus.FpsAccountId=$FpsAccountId, cus.IsDeposit=$IsDeposit, cus.CreatedDate=$CreatedDate
+MERGE (dev:Device{DeviceId:$DeviceId})
 MERGE (cus) -[:USED]-> (dev)
 WITH cus
-OPTIONAL MATCH (cus)-[:USED]->(:Devices)<-[:USED]-(:Customers)-[:BELONG_TO]->(g:Group)
+OPTIONAL MATCH (cus)-[:USED]->(:Device)<-[:USED]-(:Customer)-[:BELONG_TO]->(g:Group)
 OPTIONAL MATCH (cus)-[:BELONG_TO]->(g1)
-WITH cus, COLLECT(g) + COLLECT(g1) as groups
-CALL apoc.do.when(size(groups) = 0, 
-		"CREATE (g:Group) SET g.GroupId = ID(g) RETURN g.GroupId as groupId",
-        "UNWIND $groups as g RETURN g.GroupId as groupId",
+WITH cus, COLLECT(g) + COLLECT(g1) AS groups
+CALL apoc.do.when(size(groups) = 0,
+		"CREATE (g:Group) SET g.GroupId = ID(g) RETURN g.GroupId AS groupId",
+        "UNWIND $groups AS g RETURN g.GroupId AS groupId",
         {groups: groups}) YIELD value
 MATCH (g:Group {GroupId: value.groupId})
 WITH cus, collect(DISTINCT g) AS groups

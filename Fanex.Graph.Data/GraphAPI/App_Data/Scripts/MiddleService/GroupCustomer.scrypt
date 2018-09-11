@@ -1,3 +1,3 @@
-﻿MATCH (c:Customers)-[:BELONG_TO]->(g:Group)
+﻿MATCH (c:Customer)-[:BELONG_TO]->(g:Group)
 WHERE c.CustId IN $CustIdList
 RETURN c.CustId AS CustId, g.GroupId AS GroupId

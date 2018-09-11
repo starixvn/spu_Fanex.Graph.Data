@@ -2,5 +2,5 @@
 WITH g
 SET g.GroupId = ID(g)
 WITH g
-MATCH (cus:Customers {CustId: $CustId})
+MATCH (cus:Customer {CustId: $CustId})
 MERGE (cus)-[:BELONG_TO]->(g)
