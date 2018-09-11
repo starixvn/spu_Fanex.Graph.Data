@@ -128,7 +128,7 @@ namespace Fanex.Graph.Data
 
         public static DbSessionFactory Init() => new DbSessionFactory();
 
-        public static IEnumerable<T> Execute<T>(string key, object parameters = null)
+        public static ExecutionResult<IEnumerable<T>> Execute<T>(string key, object parameters = null)
         {
             var setting = settings[key];
 
@@ -138,10 +138,10 @@ namespace Fanex.Graph.Data
 
             var cmd = builder.BuildCommand(setting);
 
-            return (IEnumerable<T>)executor.Execute<T>(driver, cmd, parameters);
+            return (ExecutionResult<IEnumerable<T>>)executor.Execute<T>(driver, cmd, parameters);
         }
 
-        public static void Execute(string key, object parameters = null)
+        public static ExecutionResult Execute(string key, object parameters = null)
         {
             var setting = settings[key];
 
@@ -151,10 +151,10 @@ namespace Fanex.Graph.Data
 
             var cmd = builder.BuildCommand(setting);
 
-            executor.Execute(driver, cmd, parameters);
+            return (ExecutionResult)executor.Execute(driver, cmd, parameters);
         }
 
-        public static T ExecuteSingle<T>(string key, object parameters = null)
+        public static ExecutionResult<T> ExecuteSingle<T>(string key, object parameters = null)
         {
             var setting = settings[key];
 
@@ -164,7 +164,7 @@ namespace Fanex.Graph.Data
 
             var cmd = builder.BuildCommand(setting);
 
-            return (T)executor.ExecuteSingle<T>(driver, cmd, parameters);
+            return (ExecutionResult<T>)executor.ExecuteSingle<T>(driver, cmd, parameters);
         }
     }
 }

@@ -3,7 +3,6 @@
     using Fanex.Graph.Data;
     using GraphAPI.Model;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Web.Http;
 
     public class MiddleServiceController : ApiController
@@ -12,7 +11,7 @@
         public IEnumerable<object> GroupForCustId(IEnumerable<int> custIds)
         {
             return DbSessionFactory
-                .Execute<Group>(MiddleSerivce.GroupCustomer, new { CustIdList = custIds });
+                .Execute<Group>(MiddleSerivce.GroupCustomer, new { CustIdList = custIds }).Data;
         }
     }
 }

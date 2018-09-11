@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbSessionFactory.cs" />
+    <Compile Include="ExecutionResult.cs" />
     <Compile Include="ICommandBuilder.cs" />
     <Compile Include="ICommandExecutor.cs" />
     <Compile Include="IDriverFactory.cs" />

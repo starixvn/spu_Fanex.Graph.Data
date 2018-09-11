@@ -8,9 +8,11 @@ namespace GraphAPI.Controllers
     public class FPSController : ApiController
     {
         [HttpPost]
-        public void AddAssociation(AddCustomerAndAssociationCriteria criteria)
+        public object AddAssociation(AddCustomerAndAssociationCriteria criteria)
         {
-            var groupIds = DbSessionFactory.Execute<int>(FPS.AddCustomerAndAssociation, criteria);
+            var result = DbSessionFactory.Execute<int>(FPS.AddCustomerAndAssociation, criteria);
+
+            var groupIds = result.Data;
 
             if (groupIds.Any())
             {
@@ -20,12 +22,12 @@ namespace GraphAPI.Controllers
                     CustId = criteria.CustId
                 };
 
-                DbSessionFactory.Execute(FPS.MergeExistingGroup, mergeExistingGroupCriteria);
+                return result + DbSessionFactory.Execute(FPS.MergeExistingGroup, mergeExistingGroupCriteria);
             }
             else
             {
                 var addGroupCriteria = new AddNewGroupCriteria() { CustId = criteria.CustId };
-                DbSessionFactory.Execute(FPS.AddNewGroup, addGroupCriteria);
+                return result + DbSessionFactory.Execute(FPS.AddNewGroup, addGroupCriteria);
             }
         }
     }

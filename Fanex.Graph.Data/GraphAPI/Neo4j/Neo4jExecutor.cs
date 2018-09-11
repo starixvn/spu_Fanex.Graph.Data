@@ -9,37 +9,52 @@ namespace GraphAPI.Neo4j
 {
     public class Neo4jExecutor : ICommandExecutor<IDriver>
     {
-        public IEnumerable<T> Execute<T>(IDriver driver, string command, object parameters = null)
+        public ExecutionResult<IEnumerable<T>> Execute<T>(IDriver driver, string command, object parameters = null)
         {
-            using (var session = driver.Session())
-            {
-                return session.WriteTransaction(tx =>
-                {
-                    var result = parameters is null ? tx.Run(command) : tx.Run(command, parameters);
+            var statementResult = RunStatement(driver, command, parameters);
 
-                    return result.Select(ParseRecord<T>);
-                });
-            }
+            var counters = statementResult.Summary.Counters;
+            
+            return new ExecutionResult<IEnumerable<T>>
+            {
+                AffectedNodes = counters.NodesCreated + counters.NodesDeleted,
+                AffectedRelationship = counters.RelationshipsCreated + counters.RelationshipsDeleted,
+                Data = statementResult.Select(ParseRecord<T>)
+            };
         }
 
-        public void Execute(IDriver driver, string command, object parameters = null)
+        public ExecutionResult Execute(IDriver driver, string command, object parameters = null)
         {
-            using (var session = driver.Session())
+            var statementResult = RunStatement(driver, command, parameters);
+
+            var counters = statementResult.Summary.Counters;
+
+            return new ExecutionResult
             {
-                session.WriteTransaction(tx => parameters is null ? tx.Run(command) : tx.Run(command, parameters));
-            }
+                AffectedNodes = counters.NodesCreated + counters.NodesDeleted,
+                AffectedRelationship = counters.RelationshipsCreated + counters.RelationshipsDeleted,
+            };
         }
 
-        public T ExecuteSingle<T>(IDriver driver, string command, object parameters = null)
+        public ExecutionResult<T> ExecuteSingle<T>(IDriver driver, string command, object parameters = null)
+        {
+            var statementResult = RunStatement(driver, command, parameters);
+
+            var counters = statementResult.Summary.Counters;
+
+            return new ExecutionResult<T>
+            {
+                AffectedNodes = counters.NodesCreated + counters.NodesDeleted,
+                AffectedRelationship = counters.RelationshipsCreated + counters.RelationshipsDeleted,
+                Data = ParseRecord<T>(statementResult.First())
+            };
+        }
+
+        private IStatementResult RunStatement(IDriver driver, string command, object parameters)
         {
             using (var session = driver.Session())
             {
-                return session.WriteTransaction(tx =>
-                {
-                    var result = parameters is null ? tx.Run(command) : tx.Run(command, parameters);
-
-                    return ParseRecord<T>(result.Single());
-                });
+                return session.WriteTransaction(tx => tx.Run(command, parameters));
             }
         }
 
