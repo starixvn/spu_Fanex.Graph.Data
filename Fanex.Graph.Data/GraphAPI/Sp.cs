@@ -17,5 +17,9 @@ namespace GraphAPI
                             public const string AddNewGroup = "AddNewGroup";
                             public const string GetDirectGroupCriteria = "GetDirectGroupCriteria";
                     }
+            public static class Test
+        {
+                            public const string HelloApi = "HelloApi";
+                    }
     }
 

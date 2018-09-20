@@ -10,4 +10,7 @@
     <GraphSetting Key="AddNewGroup" SpName="AddNewGroup" DbName="DB.MiddleService" />
     <GraphSetting Key="GetDirectGroupCriteria" SpName="GetDirectGroupCriteria" DbName="DB.MiddleService" />
   </Function>
+  <Function Name="Test">
+    <GraphSetting Key="HelloApi" SpName="HelloApi" DbName="DB.MiddleService" />
+  </Function>
 </Functions>

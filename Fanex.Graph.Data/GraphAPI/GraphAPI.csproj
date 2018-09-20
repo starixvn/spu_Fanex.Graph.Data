@@ -119,6 +119,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\FPSController.cs" />
     <Compile Include="Controllers\MiddleServiceController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Criteria\AddNewGroupCriteria.cs" />
     <Compile Include="Criteria\MergeExistingGroupCriteria.cs" />
     <Compile Include="ExceptionLogger.cs" />
@@ -142,6 +143,7 @@
     <Content Include="App_Data\Scripts\FPS\Unused_MergeExistingGroup.scrypt" />
     <Content Include="App_Data\Scripts\FPS\AddCustomerAndAssociation.scrypt" />
     <Content Include="App_Data\Scripts\FPS\Unused_AddNewGroup.scrypt" />
+    <Content Include="App_Data\Scripts\HelloApi.scrypt" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
