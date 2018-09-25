@@ -13,6 +13,8 @@ namespace GraphAPI
         {
                             public const string a = "a";
                             public const string AddCustomerAndAssociation = "AddCustomerAndAssociation";
+                            public const string AddEvidence = "AddEvidence";
+                            public const string RemoveEvidenceByCustomerList = "RemoveEvidenceByCustomerList";
                             public const string MergeExistingGroup = "MergeExistingGroup";
                             public const string AddNewGroup = "AddNewGroup";
                             public const string GetDirectGroupCriteria = "GetDirectGroupCriteria";

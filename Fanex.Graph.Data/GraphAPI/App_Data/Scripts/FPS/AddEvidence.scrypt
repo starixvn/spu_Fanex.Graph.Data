@@ -1,0 +1,4 @@
+﻿MATCH (c:Customer {CustId: $CustId})
+FOREACH (code IN $EvidenceCodes | 
+MERGE (e:Evidence {EviCode: code}) 
+MERGE (c)-[:HAS {CreatedDate: $CreatedDate}]->(e))

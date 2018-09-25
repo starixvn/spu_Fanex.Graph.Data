@@ -120,6 +120,8 @@
     <Compile Include="Controllers\FPSController.cs" />
     <Compile Include="Controllers\MiddleServiceController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Criteria\RemoveEvidenceByCustomerListCriteria.cs" />
+    <Compile Include="Criteria\AddEvidenceCriteria.cs" />
     <Compile Include="Criteria\AddNewGroupCriteria.cs" />
     <Compile Include="Criteria\MergeExistingGroupCriteria.cs" />
     <Compile Include="ExceptionLogger.cs" />
@@ -144,6 +146,8 @@
     <Content Include="App_Data\Scripts\FPS\AddCustomerAndAssociation.scrypt" />
     <Content Include="App_Data\Scripts\FPS\Unused_AddNewGroup.scrypt" />
     <Content Include="App_Data\Scripts\HelloApi.scrypt" />
+    <Content Include="App_Data\Scripts\FPS\AddEvidence.scrypt" />
+    <Content Include="App_Data\Scripts\FPS\RemoveEvidenceByCustomerList.scrypt" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
@@ -159,6 +163,7 @@
     <Content Include="Web.UAT.config">
       <DependentUpon>Web.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
