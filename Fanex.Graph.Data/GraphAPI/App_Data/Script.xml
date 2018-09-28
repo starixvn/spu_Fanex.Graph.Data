@@ -4,7 +4,6 @@
     <GraphSetting Key="GroupCustomer" SpName="GroupCustomer" DbName="DB.MiddleService" />
   </Function>
   <Function Name="FPS">
-    <GraphSetting Key="a" SpName="a" DbName="DB.MiddleService" />
     <GraphSetting Key="AddCustomerAndAssociation" SpName="AddCustomerAndAssociation" DbName="DB.MiddleService" />
     <GraphSetting Key="AddEvidence" SpName="AddEvidence" DbName="DB.MiddleService" />
     <GraphSetting Key="RemoveEvidenceByCustomerList" SpName="RemoveEvidenceByCustomerList" DbName="DB.MiddleService" />\
