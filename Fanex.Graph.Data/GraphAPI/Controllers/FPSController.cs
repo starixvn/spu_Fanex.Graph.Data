@@ -11,7 +11,6 @@ namespace GraphAPI.Controllers
         public object AddAssociation(AddCustomerAndAssociationCriteria criteria)
         {
             criteria.CreatedDate = DateTime.Now.ToString();
-            criteria.Username = "harvey";
             return DbSessionFactory.Execute(FPS.AddCustomerAndAssociation, criteria);
         }
 

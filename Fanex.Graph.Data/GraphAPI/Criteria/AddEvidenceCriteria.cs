@@ -10,7 +10,7 @@ namespace GraphAPI.Criteria
 
         public string Username2 { get; set; }
 
-        public IEnumerable<string> EvidenceCodes { get; set; }
+        public IEnumerable<string> EvidenceCodesForGraph { get; set; }
 
         public int RoleId { get; set; }
 
