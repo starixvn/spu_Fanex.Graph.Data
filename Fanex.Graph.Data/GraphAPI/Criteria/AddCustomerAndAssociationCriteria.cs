@@ -21,5 +21,7 @@
         public int FpsAccountId { get; set; }
 
         public bool IsDeposit { get; set; }
+
+        public string CreatedDate { get; set; }
     }
 }

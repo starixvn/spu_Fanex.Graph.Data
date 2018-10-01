@@ -10,6 +10,8 @@ namespace GraphAPI.Controllers
         [HttpPost]
         public object AddAssociation(AddCustomerAndAssociationCriteria criteria)
         {
+            criteria.CreatedDate = DateTime.Now.ToString();
+            criteria.Username = "harvey";
             return DbSessionFactory.Execute(FPS.AddCustomerAndAssociation, criteria);
         }
 
@@ -17,7 +19,7 @@ namespace GraphAPI.Controllers
         public object AddEvidence(AddEvidenceCriteria criteria)
         {
             criteria.CreatedDate = DateTime.Now.ToString();
-            return DbSessionFactory.Execute(FPS.AddEvidence, criteria);
+            return DbSessionFactory.Execute(FPS.AddCustomerAndEvidence, criteria);
         }
 
         [HttpPost]
