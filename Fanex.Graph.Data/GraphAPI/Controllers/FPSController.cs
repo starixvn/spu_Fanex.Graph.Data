@@ -1,4 +1,5 @@
 ﻿using Fanex.Graph.Data;
+using Fanex.Logging;
 using GraphAPI.Criteria;
 using System;
 using System.Web.Http;
