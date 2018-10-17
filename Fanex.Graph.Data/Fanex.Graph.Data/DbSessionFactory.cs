@@ -166,5 +166,9 @@ namespace Fanex.Graph.Data
 
             return (ExecutionResult<T>)executor.ExecuteSingle<T>(driver, cmd, parameters);
         }
+
+        public static IEnumerable<T> Query<T>(string key, object parameters = null) => Execute<T>(key, parameters).Data;
+
+        public static T QuerySingle<T>(string key, object parameters = null) => ExecuteSingle<T>(key, parameters).Data;
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Fanex.Graph.Data
+﻿using System;
+
+namespace Fanex.Graph.Data
 {
     public class ExecutionResult
     {
