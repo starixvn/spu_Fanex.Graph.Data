@@ -3,6 +3,7 @@ using Fanex.Logging;
 using GraphAPI.Criteria;
 using System;
 using System.Collections.Concurrent;
+using System.Linq;
 using System.Threading;
 using System.Web.Http;
 
@@ -15,8 +16,9 @@ namespace GraphAPI.Controllers
         private static Thread thread;
 
         [HttpPost]
-        public object AddAssociation(AddCustomerAndAssociationCriteria criteria)
+        public void AddAssociation(AddCustomerAndAssociationCriteria criteria)
         {
+#if DEBUG
             criteria.CustId = 32297449;
             criteria.Username = "BV890988888";
             criteria.Username2 = null;
@@ -24,11 +26,11 @@ namespace GraphAPI.Controllers
             criteria.CurrencyId = 16;
             criteria.CurrencyName = "Yen";
             criteria.SubscriberId = 169;
-            criteria.DeviceId = 59671118;
+            criteria.DeviceId = 59671118; 
+#endif
+
             criteria.CreatedDate = DateTime.Now.ToString();
             queue.Enqueue(criteria);
-
-            return null;
         }
 
         [HttpPost]
@@ -80,8 +82,8 @@ namespace GraphAPI.Controllers
 
         private static void InsertCustomerAndAssociation(AddCustomerAndAssociationCriteria criteria)
         {
-            var groupIds = DbSessionFactory.Execute<int>(FPS.AddCustomerAndAssociation, criteria);
-            var mergedGroupId = DbSessionFactory.ExecuteSingle<int>(FPS.MergeGroup, new { groupIds });
+            var groupIds = DbSessionFactory.Query<int>(FPS.AddCustomerAndAssociation, criteria);
+            var mergedGroupId = DbSessionFactory.QuerySingle<int>(FPS.MergeGroup, new { groupIds });
             DbSessionFactory.Execute(FPS.AddCustomerGroupRelationship, new { criteria.CustId, GroupId = mergedGroupId });
         }
     }
