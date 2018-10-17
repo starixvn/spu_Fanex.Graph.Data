@@ -12,6 +12,4 @@ CALL apoc.do.when(size(groups) = 0,
         "UNWIND $groups AS g RETURN DISTINCT g.GroupId AS groupId",
         {groups: groups}) YIELD value
 MATCH (g:Group {GroupId: value.groupId})
-WITH cus, collect(g) AS groups
-CALL apoc.refactor.mergeNodes(groups) YIELD node
-MERGE (cus)-[:BELONG_TO]->(node)
+RETURN g.GroupId AS GroupId

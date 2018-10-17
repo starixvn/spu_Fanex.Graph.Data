@@ -145,11 +145,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Scripts\MiddleService\GroupCustomer.scrypt" />
-    <Content Include="App_Data\Scripts\FPS\AddCustomerAndAssociation.scrypt" />
+    <Content Include="App_Data\Scripts\FPS\AddCustomerGroupRelationship.scrypt" />
     <Content Include="App_Data\Scripts\HelloApi.scrypt" />
     <Content Include="App_Data\Scripts\FPS\AddCustomerAndEvidence.scrypt" />
     <Content Include="App_Data\Scripts\FPS\RemoveEvidenceByCustomerList.scrypt" />
     <Content Include="App_Data\Scripts\FPS\UpdateCustomerUsername2.scrypt" />
+    <Content Include="App_Data\Scripts\FPS\MergeGroup.scrypt" />
+    <Content Include="App_Data\Scripts\FPS\AddCustomerAndAssociation.scrypt" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />

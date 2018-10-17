@@ -17,6 +17,14 @@ namespace GraphAPI.Controllers
         [HttpPost]
         public object AddAssociation(AddCustomerAndAssociationCriteria criteria)
         {
+            criteria.CustId = 32297449;
+            criteria.Username = "BV890988888";
+            criteria.Username2 = null;
+            criteria.RoleId = 1;
+            criteria.CurrencyId = 16;
+            criteria.CurrencyName = "Yen";
+            criteria.SubscriberId = 169;
+            criteria.DeviceId = 59671118;
             criteria.CreatedDate = DateTime.Now.ToString();
             queue.Enqueue(criteria);
 
@@ -53,7 +61,7 @@ namespace GraphAPI.Controllers
 
                     if (criteria != null)
                     {
-                        DbSessionFactory.Execute(FPS.AddCustomerAndAssociation, criteria);
+                        InsertCustomerAndAssociation(criteria);
                     }
                 }
                 catch (Exception ex)
@@ -68,6 +76,13 @@ namespace GraphAPI.Controllers
             thread = new Thread(RunQueue);
 
             thread.Start();
+        }
+
+        private static void InsertCustomerAndAssociation(AddCustomerAndAssociationCriteria criteria)
+        {
+            var groupIds = DbSessionFactory.Execute<int>(FPS.AddCustomerAndAssociation, criteria);
+            var mergedGroupId = DbSessionFactory.ExecuteSingle<int>(FPS.MergeGroup, new { groupIds });
+            DbSessionFactory.Execute(FPS.AddCustomerGroupRelationship, new { criteria.CustId, GroupId = mergedGroupId });
         }
     }
 }

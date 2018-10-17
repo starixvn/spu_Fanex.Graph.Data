@@ -1,0 +1,5 @@
+﻿MATCH (g:Group)
+WHERE g.GroupId IN $groupIds
+WITH COLLECT(g) AS groups
+CALL apoc.refactor.mergeNodes(groups) YIELD node
+RETURN node.GroupId as GroupId

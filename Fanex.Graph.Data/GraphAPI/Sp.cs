@@ -12,6 +12,8 @@ namespace GraphAPI
             public static class FPS
         {
                             public const string AddCustomerAndAssociation = "AddCustomerAndAssociation";
+                            public const string AddCustomerGroupRelationship = "AddCustomerGroupRelationship";
+                            public const string MergeGroup = "MergeGroup";
                             public const string UpdateCustomerUsername2 = "UpdateCustomerUsername2";
                             public const string AddCustomerAndEvidence = "AddCustomerAndEvidence";
                             public const string RemoveEvidenceByCustomerList = "RemoveEvidenceByCustomerList";
