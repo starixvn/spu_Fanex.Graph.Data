@@ -11,6 +11,7 @@ namespace GraphAPI.Controllers
         [HttpPost]
         public object AddAssociation(AddCustomerAndAssociationCriteria criteria)
         {
+            LogService.Info("AddAssociation: " + DateTime.Now + " CustID: " + criteria.CustId);
             criteria.CreatedDate = DateTime.Now.ToString();
             return DbSessionFactory.Execute(FPS.AddCustomerAndAssociation, criteria);
         }
@@ -26,6 +27,12 @@ namespace GraphAPI.Controllers
         public object RemoveEvidenceByCustomerList(RemoveEvidenceByCustomerListCriteria criteria)
         {
             return DbSessionFactory.Execute(FPS.RemoveEvidenceByCustomerList, criteria);
+        }
+
+        [HttpPost]
+        public object UpdateUsername2(UpdateUsername2Criteria criteria)
+        {
+            return DbSessionFactory.Execute(FPS.UpdateCustomerUsername2, criteria);
         }
     }
 }

@@ -126,6 +126,7 @@
     <Compile Include="Criteria\AddEvidenceCriteria.cs" />
     <Compile Include="Criteria\AddNewGroupCriteria.cs" />
     <Compile Include="Criteria\MergeExistingGroupCriteria.cs" />
+    <Compile Include="Criteria\UpdateUsername2Criteria.cs" />
     <Compile Include="ExceptionLogger.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -148,6 +149,7 @@
     <Content Include="App_Data\Scripts\HelloApi.scrypt" />
     <Content Include="App_Data\Scripts\FPS\AddCustomerAndEvidence.scrypt" />
     <Content Include="App_Data\Scripts\FPS\RemoveEvidenceByCustomerList.scrypt" />
+    <Content Include="App_Data\Scripts\FPS\UpdateCustomerUsername2.scrypt" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
