@@ -3,8 +3,8 @@ ON CREATE SET cus.Username=$Username, cus.Username2=$Username2, cus.RoleId=$Role
 ON MATCH SET cus.Username=$Username, cus.Username2=$Username2, cus.RoleId=$RoleId, cus.CurrencyId=$CurrencyId, cus.CurrencyName=$CurrencyName, cus.SubscriberId=$SubscriberId, cus.FpsAccountId=$FpsAccountId
 MERGE (dev:Device{DeviceId:$DeviceId})
 MERGE (cus) -[:USED]-> (dev)
-WITH cus
-OPTIONAL MATCH (cus)-[:USED]->(:Device)<-[:USED]-(:Customer)-[:BELONG_TO]->(g:Group)
+WITH cus,dev
+OPTIONAL MATCH (cus)-[:USED]->(dev)<-[:USED]-(:Customer)-[:BELONG_TO]->(g:Group)
 OPTIONAL MATCH (cus)-[:BELONG_TO]->(g1:Group)
 WITH cus, COLLECT(DISTINCT g) + COLLECT(DISTINCT g1) AS groups
 CALL apoc.do.when(size(groups) = 0,
