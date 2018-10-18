@@ -52,6 +52,7 @@ namespace GraphAPI.Controllers
                     if (criteria != null)
                     {
                         InsertCustomerAndAssociation(criteria);
+                        Thread.Sleep(5000);
                     }
                 }
                 catch (Exception ex)
