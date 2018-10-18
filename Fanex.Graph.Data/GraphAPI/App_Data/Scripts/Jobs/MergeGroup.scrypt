@@ -13,4 +13,8 @@ WITH
 MATCH (smallGroup)<-[b:BELONG_TO]-(c:Customer)
 DELETE b
 MERGE (c)-[:BELONG_TO]->(bigGroup)
-DELETE smallGroup
+WITH smallGroup, bigGroup
+MATCH (smallGroup)-[:MERGING]-(g:Group)
+WHERE NOT EXISTS((bigGroup)-[:MERGING]-(g))
+MERGE (bigGroup)-[:MERGING]->(g)
+DETACH DELETE smallGroup
