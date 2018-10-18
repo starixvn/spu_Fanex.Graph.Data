@@ -1,8 +1,6 @@
 using GraphAPI.Criteria;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -12,25 +10,29 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
-            var arr = new TEst
+            for (int i = 0; i < 100; i++)
             {
-               CurrencyId = 2,
-               CurrencyName = "RM",
-               CustId = 329981,
-               DeviceId = 128,
-               FpsAccountId = 6313,
-               IsDeposit = true,
-               RoleId = 5,
-               SubscriberId = 0,
-               Username = "fpsw_vvsony",
-               Username2 = ""
-            };
+                var criteria = new AddCustomerAndAssociationCriteria
+                {
+                    CustId = -i,
+                    Username = $"test {i}",
+                    RoleId = 1,
+                    CurrencyId = 16,
+                    CurrencyName = "Yen",
+                    SubscriberId = 169,
+                    DeviceId = -i,
+                };
 
-            var data = Post("http://localhost:51974/api/FPS/AddAssociation", arr);
+                var tsk = Post("http://ha.nexdev.net:7721/api/FPS/AddAssociation", criteria);
 
-            Task.WaitAll(data);
+                Task.WaitAll(tsk);
 
-            Console.ReadKey();
+                criteria.DeviceId = -2;
+
+                tsk = Post("http://ha.nexdev.net:7721/api/FPS/AddAssociation", criteria);
+
+                Task.WaitAll(tsk);
+            }
         }
 
         public static async Task<TResult> Post<TResult>(string url, object param)

@@ -54,7 +54,7 @@ namespace GraphAPI.Neo4j
         {
             using (var session = driver.Session())
             {
-                return session.WriteTransaction(tx => tx.Run(command, parameters));
+                return session.Run(command, parameters);
             }
         }
 
