@@ -13,7 +13,8 @@ namespace GraphAPI
         {
                             public const string AddCustomerAndAssociation = "AddCustomerAndAssociation";
                             public const string AddCustomerGroupRelationship = "AddCustomerGroupRelationship";
-                            public const string MergeGroup = "MergeGroup";
+                            public const string MarkMergeGroup = "MarkMergeGroup";
+                            public const string CreateNewGroup = "CreateNewGroup";
                             public const string UpdateCustomerUsername2 = "UpdateCustomerUsername2";
                             public const string AddCustomerAndEvidence = "AddCustomerAndEvidence";
                             public const string RemoveEvidenceByCustomerList = "RemoveEvidenceByCustomerList";
@@ -22,6 +23,10 @@ namespace GraphAPI
             public static class Test
         {
                             public const string HelloApi = "HelloApi";
+                    }
+            public static class Jobs
+        {
+                            public const string MergeGroup = "MergeGroup";
                     }
     }
 

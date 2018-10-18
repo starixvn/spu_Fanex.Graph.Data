@@ -108,6 +108,7 @@
     <Content Include="App_Data\Script.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="App_Data\Scripts\Jobs\MergeGroup.scrypt" />
     <Content Include="Global.asax" />
     <Content Include="Sp.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -132,6 +133,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Criteria\AddCustomerAndAssociationCriteria.cs" />
+    <Compile Include="Model\CustomerGroup.cs" />
     <Compile Include="Model\Group.cs" />
     <Compile Include="Neo4j\Neo4jCommandBuilder.cs" />
     <Compile Include="Neo4j\Neo4jDriverFactory.cs" />
@@ -150,8 +152,9 @@
     <Content Include="App_Data\Scripts\FPS\AddCustomerAndEvidence.scrypt" />
     <Content Include="App_Data\Scripts\FPS\RemoveEvidenceByCustomerList.scrypt" />
     <Content Include="App_Data\Scripts\FPS\UpdateCustomerUsername2.scrypt" />
-    <Content Include="App_Data\Scripts\FPS\MergeGroup.scrypt" />
     <Content Include="App_Data\Scripts\FPS\AddCustomerAndAssociation.scrypt" />
+    <Content Include="App_Data\Scripts\FPS\MarkMergeGroup.scrypt" />
+    <Content Include="App_Data\Scripts\FPS\CreateNewGroup.scrypt" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />

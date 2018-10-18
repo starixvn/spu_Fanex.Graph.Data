@@ -23,13 +23,13 @@ namespace TestConsole
                     DeviceId = -i,
                 };
 
-                var tsk = Post("http://ha.nexdev.net:7721/api/FPS/AddAssociation", criteria);
+                var tsk = Post("http://localhost:51974/api/FPS/AddAssociation", criteria);
 
                 Task.WaitAll(tsk);
 
                 criteria.DeviceId = -2;
 
-                tsk = Post("http://ha.nexdev.net:7721/api/FPS/AddAssociation", criteria);
+                tsk = Post("http://localhost:51974/api/FPS/AddAssociation", criteria);
 
                 Task.WaitAll(tsk);
             }
@@ -55,6 +55,11 @@ namespace TestConsole
             using (var web = new HttpClient())
             {
                 var response = await web.PostAsJsonAsync(url, param).ConfigureAwait(false);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new InvalidDataException();
+                }
             }
         }
 

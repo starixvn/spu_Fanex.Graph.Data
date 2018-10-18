@@ -6,7 +6,8 @@
   <Function Name="FPS">
     <GraphSetting Key="AddCustomerAndAssociation" SpName="AddCustomerAndAssociation" DbName="DB.MiddleService" />
     <GraphSetting Key="AddCustomerGroupRelationship" SpName="AddCustomerGroupRelationship" DbName="DB.MiddleService" />
-    <GraphSetting Key="MergeGroup" SpName="MergeGroup" DbName="DB.MiddleService" />
+    <GraphSetting Key="MarkMergeGroup" SpName="MarkMergeGroup" DbName="DB.MiddleService" />
+    <GraphSetting Key="CreateNewGroup" SpName="CreateNewGroup" DbName="DB.MiddleService" />
     <GraphSetting Key="UpdateCustomerUsername2" SpName="UpdateCustomerUsername2" DbName="DB.MiddleService" />
     <GraphSetting Key="AddCustomerAndEvidence" SpName="AddCustomerAndEvidence" DbName="DB.MiddleService" />
     <GraphSetting Key="RemoveEvidenceByCustomerList" SpName="RemoveEvidenceByCustomerList" DbName="DB.MiddleService" />\
@@ -14,5 +15,8 @@
   </Function>
   <Function Name="Test">
     <GraphSetting Key="HelloApi" SpName="HelloApi" DbName="DB.MiddleService" />
+  </Function>
+  <Function Name="Jobs">
+    <GraphSetting Key="MergeGroup" SpName="MergeGroup" DbName="DB.MiddleService" />
   </Function>
 </Functions>

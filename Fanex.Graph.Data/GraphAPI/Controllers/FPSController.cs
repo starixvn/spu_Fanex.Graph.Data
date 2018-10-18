@@ -1,6 +1,7 @@
 ﻿using Fanex.Graph.Data;
 using Fanex.Logging;
 using GraphAPI.Criteria;
+using GraphAPI.Model;
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
@@ -11,15 +12,37 @@ namespace GraphAPI.Controllers
 {
     public class FPSController : ApiController
     {
-        private static ConcurrentQueue<AddCustomerAndAssociationCriteria> queue = new ConcurrentQueue<AddCustomerAndAssociationCriteria>();
-
         private static Thread thread;
 
         [HttpPost]
         public void AddAssociation(AddCustomerAndAssociationCriteria criteria)
         {
             criteria.CreatedDate = DateTime.Now.ToString();
-            queue.Enqueue(criteria);
+
+            var merger = DbSessionFactory.QuerySingle<MergingGroups>(FPS.AddCustomerAndAssociation, criteria);
+
+            if (merger.CustomerGroups.Any())
+            {
+                var cusGroup = merger.CustomerGroups.First();
+
+                if (merger.DeviceGroups.Any())
+                {
+                    DbSessionFactory.Execute(FPS.MarkMergeGroup, new { CustGroupId = cusGroup, DevGroupIds = merger.DeviceGroups });
+                }
+            }
+            else
+            {
+                if (merger.DeviceGroups.Any())
+                {
+                    var devGroup = merger.DeviceGroups.First();
+
+                    DbSessionFactory.Execute(FPS.AddCustomerGroupRelationship, new { criteria.CustId, GroupId = devGroup });
+                }
+                else
+                {
+                    DbSessionFactory.Execute(FPS.CreateNewGroup, new { criteria.CustId });
+                }
+            }
         }
 
         [HttpPost]
@@ -47,12 +70,7 @@ namespace GraphAPI.Controllers
             {
                 try
                 {
-                    queue.TryDequeue(out var criteria);
-
-                    if (criteria != null)
-                    {
-                        InsertCustomerAndAssociation(criteria);
-                    }
+                    DbSessionFactory.Execute(Jobs.MergeGroup);
                 }
                 catch (Exception ex)
                 {
@@ -63,16 +81,9 @@ namespace GraphAPI.Controllers
 
         static FPSController()
         {
-            thread = new Thread(RunQueue);
+            //thread = new Thread(RunQueue);
 
-            thread.Start();
-        }
-
-        private static void InsertCustomerAndAssociation(AddCustomerAndAssociationCriteria criteria)
-        {
-            var groupIds = DbSessionFactory.Query<int>(FPS.AddCustomerAndAssociation, criteria).ToArray();
-            var mergedGroupId = DbSessionFactory.QuerySingle<int>(FPS.MergeGroup, new { groupIds });
-            DbSessionFactory.Execute(FPS.AddCustomerGroupRelationship, new { criteria.CustId, GroupId = mergedGroupId });
+            //thread.Start();
         }
     }
 }

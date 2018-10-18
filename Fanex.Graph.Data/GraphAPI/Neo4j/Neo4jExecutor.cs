@@ -19,7 +19,7 @@ namespace GraphAPI.Neo4j
             {
                 AffectedNodes = counters.NodesCreated + counters.NodesDeleted,
                 AffectedRelationship = counters.RelationshipsCreated + counters.RelationshipsDeleted,
-                Data = statementResult.Select(ParseRecord<T>)
+                Data = statementResult.Select(ParseRecord<T>).ToArray()
             };
         }
 
@@ -54,7 +54,7 @@ namespace GraphAPI.Neo4j
         {
             using (var session = driver.Session())
             {
-                return session.Run(command, parameters);
+                return session.WriteTransaction(tx => tx.Run(command, parameters));
             }
         }
 

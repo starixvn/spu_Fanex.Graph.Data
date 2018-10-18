@@ -1,0 +1,16 @@
+﻿MATCH (g:Group)-[:MERGING]->(g1:Group)
+WITH g,g1 LIMIT $size
+MATCH (g)<-[:BELONG_TO]-(c:Customer)
+MATCH (g1)<-[:BELONG_TO]-(c1:Customer)
+WITH g, g1, COUNT(c) AS sizeG, COUNT(c1) AS sizeG1
+WITH 
+	CASE
+    	WHEN sizeG > sizeG1 THEN g
+        ELSE g1 END AS bigGroup,
+    CASE
+    	WHEN sizeG > sizeG1 THEN g1
+        ELSE g END AS smallGroup
+MATCH (smallGroup)<-[b:BELONG_TO]-(c:Customer)
+DELETE b
+MERGE (c)-[:BELONG_TO]->(bigGroup)
+DELETE smallGroup
