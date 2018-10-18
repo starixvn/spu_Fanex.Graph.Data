@@ -18,17 +18,6 @@ namespace GraphAPI.Controllers
         [HttpPost]
         public void AddAssociation(AddCustomerAndAssociationCriteria criteria)
         {
-#if DEBUG
-            criteria.CustId = 32297449;
-            criteria.Username = "BV890988888";
-            criteria.Username2 = null;
-            criteria.RoleId = 1;
-            criteria.CurrencyId = 16;
-            criteria.CurrencyName = "Yen";
-            criteria.SubscriberId = 169;
-            criteria.DeviceId = 59671118; 
-#endif
-
             criteria.CreatedDate = DateTime.Now.ToString();
             queue.Enqueue(criteria);
         }
@@ -81,7 +70,7 @@ namespace GraphAPI.Controllers
 
         private static void InsertCustomerAndAssociation(AddCustomerAndAssociationCriteria criteria)
         {
-            var groupIds = DbSessionFactory.Query<int>(FPS.AddCustomerAndAssociation, criteria);
+            var groupIds = DbSessionFactory.Query<int>(FPS.AddCustomerAndAssociation, criteria).ToArray();
             var mergedGroupId = DbSessionFactory.QuerySingle<int>(FPS.MergeGroup, new { groupIds });
             DbSessionFactory.Execute(FPS.AddCustomerGroupRelationship, new { criteria.CustId, GroupId = mergedGroupId });
         }
