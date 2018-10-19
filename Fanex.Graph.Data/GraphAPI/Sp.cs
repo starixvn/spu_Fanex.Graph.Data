@@ -19,6 +19,10 @@ namespace GraphAPI
                             public const string AddCustomerAndEvidence = "AddCustomerAndEvidence";
                             public const string RemoveEvidenceByCustomerList = "RemoveEvidenceByCustomerList";
                             public const string GetDirectGroupCriteria = "GetDirectGroupCriteria";
+                            public const string GetCustomerById = "GetCustomerById";
+                            public const string GetDeviceById = "GetDeviceById";
+                            public const string AddAssociation = "AddAssociation";
+                            public const string CheckExistedAssociation = "CheckExistedAssociation";
                     }
             public static class Test
         {

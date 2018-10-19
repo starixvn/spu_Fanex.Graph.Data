@@ -1,20 +1,19 @@
-﻿MATCH (g:Group)-[:MERGING]->(g1:Group)
-WITH g,g1 LIMIT $size
-MATCH (g)<-[:BELONG_TO]-(c:Customer)
-MATCH (g1)<-[:BELONG_TO]-(c1:Customer)
-WITH g, g1, COUNT(c) AS sizeG, COUNT(c1) AS sizeG1
+﻿MATCH (d:Device {DeviceId: $DeviceId})
+MATCH (c:Customer {CustId: $CustId})
+WITH c, d
+MATCH (d)<-[:USED]-(c1:Customer)-[:BELONG_TO]->(g1:Group)
+WHERE c1.CustId <> c.CustId
+WITH g1, c LIMIT 1
+MATCH (c)-[:BELONG_TO]->(g:Group)
 WITH 
 	CASE
-    	WHEN sizeG > sizeG1 THEN g
-        ELSE g1 END AS bigGroup,
+    	WHEN g1.CustomerQuantity > g.CustomerQuantity THEN g1
+        ELSE g END AS bigGroup,
     CASE
-    	WHEN sizeG > sizeG1 THEN g1
-        ELSE g END AS smallGroup
-MATCH (smallGroup)<-[b:BELONG_TO]-(c:Customer)
-DELETE b
-MERGE (c)-[:BELONG_TO]->(bigGroup)
-WITH smallGroup, bigGroup
-MATCH (smallGroup)-[:MERGING]-(g:Group)
-WHERE NOT EXISTS((bigGroup)-[:MERGING]-(g))
-MERGE (bigGroup)-[:MERGING]->(g)
+    	WHEN g1.CustomerQuantity > g.CustomerQuantity THEN g
+        ELSE g1 END AS smallGroup
+MATCH (needMergeCus:Customer)-[:BELONG_TO]->(smallGroup)
+CREATE (needMergeCus)-[:BELONG_TO]->(bigGroup)
+WITH DISTINCT bigGroup,smallGroup
+SET bigGroup.CustomerQuantity = bigGroup.CustomerQuantity + smallGroup.CustomerQuantity
 DETACH DELETE smallGroup

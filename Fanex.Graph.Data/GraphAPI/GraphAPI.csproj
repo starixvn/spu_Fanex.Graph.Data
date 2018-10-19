@@ -155,6 +155,10 @@
     <Content Include="App_Data\Scripts\FPS\AddCustomerAndAssociation.scrypt" />
     <Content Include="App_Data\Scripts\FPS\MarkMergeGroup.scrypt" />
     <Content Include="App_Data\Scripts\FPS\CreateNewGroup.scrypt" />
+    <Content Include="App_Data\Scripts\FPS\GetCustomerById.scrypt" />
+    <Content Include="App_Data\Scripts\FPS\GetDeviceById.scrypt" />
+    <Content Include="App_Data\Scripts\FPS\AddAssociation.scrypt" />
+    <Content Include="App_Data\Scripts\FPS\CheckExistedAssociation.scrypt" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />

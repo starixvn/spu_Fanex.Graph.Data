@@ -12,6 +12,10 @@
     <GraphSetting Key="AddCustomerAndEvidence" SpName="AddCustomerAndEvidence" DbName="DB.MiddleService" />
     <GraphSetting Key="RemoveEvidenceByCustomerList" SpName="RemoveEvidenceByCustomerList" DbName="DB.MiddleService" />\
     <GraphSetting Key="GetDirectGroupCriteria" SpName="GetDirectGroupCriteria" DbName="DB.MiddleService" />
+    <GraphSetting Key="GetCustomerById" SpName="GetCustomerById" DbName="DB.MiddleService" />
+    <GraphSetting Key="GetDeviceById" SpName="GetDeviceById" DbName="DB.MiddleService" />
+    <GraphSetting Key="AddAssociation" SpName="AddAssociation" DbName="DB.MiddleService" />
+    <GraphSetting Key="CheckExistedAssociation" SpName="CheckExistedAssociation" DbName="DB.MiddleService" />
   </Function>
   <Function Name="Test">
     <GraphSetting Key="HelloApi" SpName="HelloApi" DbName="DB.MiddleService" />

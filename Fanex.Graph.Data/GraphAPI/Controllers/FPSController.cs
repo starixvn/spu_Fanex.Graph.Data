@@ -18,28 +18,42 @@ namespace GraphAPI.Controllers
         public void AddAssociation(AddCustomerAndAssociationCriteria criteria)
         {
             criteria.CreatedDate = DateTime.Now.ToString();
+            var custId = DbSessionFactory.Query<int>(FPS.GetCustomerById, new { criteria.CustId });
+            var deviceId = DbSessionFactory.Query<int>(FPS.GetDeviceById, new { criteria.DeviceId });
+            var association = DbSessionFactory.Query<int>(FPS.CheckExistedAssociation, new { criteria.CustId, criteria.DeviceId });
 
-            var merger = DbSessionFactory.QuerySingle<MergingGroups>(FPS.AddCustomerAndAssociation, criteria);
+            DbSessionFactory.Execute(FPS.AddAssociation, criteria);
 
-            if (merger.CustomerGroups.Any())
+            if (custId.Any())
             {
-                var cusGroup = merger.CustomerGroups.First();
-
-                if (merger.DeviceGroups.Any())
+                if (deviceId.Any())
                 {
-                    DbSessionFactory.Execute(FPS.MarkMergeGroup, new { CustGroupId = cusGroup, DevGroupIds = merger.DeviceGroups });
+                    // case acc cu, device cu
+                    if (association.Any())
+                    {
+                        DbSessionFactory.Execute(FPS.UpdateCustomerUsername2, new { criteria.CustId, criteria.Username2 });
+                    }
+                    else
+                    {
+                        DbSessionFactory.Execute(Jobs.MergeGroup, new { criteria.CustId, criteria.DeviceId });
+                    }
+
+                }
+                else
+                {
+                    // case acc cu, device moi
                 }
             }
             else
             {
-                if (merger.DeviceGroups.Any())
+                if (deviceId.Any())
                 {
-                    var devGroup = merger.DeviceGroups.First();
-
-                    DbSessionFactory.Execute(FPS.AddCustomerGroupRelationship, new { criteria.CustId, GroupId = devGroup });
+                    // case acc moi, device cu
+                    DbSessionFactory.Execute(FPS.AddCustomerGroupRelationship, new { criteria.CustId, criteria.DeviceId });
                 }
                 else
                 {
+                    // case acc moi, device moi
                     DbSessionFactory.Execute(FPS.CreateNewGroup, new { criteria.CustId });
                 }
             }
