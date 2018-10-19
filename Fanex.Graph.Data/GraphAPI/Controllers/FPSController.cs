@@ -1,7 +1,6 @@
 ﻿using Fanex.Graph.Data;
 using Fanex.Logging;
 using GraphAPI.Criteria;
-using GraphAPI.Model;
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
@@ -12,51 +11,16 @@ namespace GraphAPI.Controllers
 {
     public class FPSController : ApiController
     {
+        private static ConcurrentQueue<AddCustomerAndAssociationCriteria> q = new ConcurrentQueue<AddCustomerAndAssociationCriteria>();
+
         private static Thread thread;
 
         [HttpPost]
         public void AddAssociation(AddCustomerAndAssociationCriteria criteria)
         {
             criteria.CreatedDate = DateTime.Now.ToString();
-            var custId = DbSessionFactory.Query<int>(FPS.GetCustomerById, new { criteria.CustId });
-            var deviceId = DbSessionFactory.Query<int>(FPS.GetDeviceById, new { criteria.DeviceId });
-            var association = DbSessionFactory.Query<int>(FPS.CheckExistedAssociation, new { criteria.CustId, criteria.DeviceId });
 
-            DbSessionFactory.Execute(FPS.AddAssociation, criteria);
-
-            if (custId.Any())
-            {
-                if (deviceId.Any())
-                {
-                    // case acc cu, device cu
-                    if (association.Any())
-                    {
-                        DbSessionFactory.Execute(FPS.UpdateCustomerUsername2, new { criteria.CustId, criteria.Username2 });
-                    }
-                    else
-                    {
-                        DbSessionFactory.Execute(Jobs.MergeGroup, new { criteria.CustId, criteria.DeviceId });
-                    }
-
-                }
-                else
-                {
-                    // case acc cu, device moi
-                }
-            }
-            else
-            {
-                if (deviceId.Any())
-                {
-                    // case acc moi, device cu
-                    DbSessionFactory.Execute(FPS.AddCustomerGroupRelationship, new { criteria.CustId, criteria.DeviceId });
-                }
-                else
-                {
-                    // case acc moi, device moi
-                    DbSessionFactory.Execute(FPS.CreateNewGroup, new { criteria.CustId });
-                }
-            }
+            q.Enqueue(criteria);
         }
 
         [HttpPost]
@@ -84,7 +48,12 @@ namespace GraphAPI.Controllers
             {
                 try
                 {
-                    DbSessionFactory.Execute(Jobs.MergeGroup);
+                    q.TryDequeue(out var criteria);
+
+                    if (criteria != null)
+                    {
+                        InsertCustomer(criteria);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -93,11 +62,53 @@ namespace GraphAPI.Controllers
             }
         }
 
+        private static void InsertCustomer(AddCustomerAndAssociationCriteria criteria)
+        {
+            var custId = DbSessionFactory.Query<int>(FPS.GetCustomerById, new { criteria.CustId });
+            var deviceId = DbSessionFactory.Query<int>(FPS.GetDeviceById, new { criteria.DeviceId });
+            var association = DbSessionFactory.Query<int>(FPS.CheckExistedAssociation, new { criteria.CustId, criteria.DeviceId });
+
+            DbSessionFactory.Execute(FPS.AddAssociation, criteria);
+
+            if (custId.Any())
+            {
+                if (deviceId.Any())
+                {
+                    // case acc cu, device cu
+                    if (association.Any())
+                    {
+                        DbSessionFactory.Execute(FPS.UpdateCustomerUsername2, new { criteria.CustId, criteria.Username2 });
+                    }
+                    else
+                    {
+                        DbSessionFactory.Execute(Jobs.MergeGroup, new { criteria.CustId, criteria.DeviceId });
+                    }
+                }
+                else
+                {
+                    // case acc cu, device moi
+                }
+            }
+            else
+            {
+                if (deviceId.Any())
+                {
+                    // case acc moi, device cu
+                    DbSessionFactory.Execute(FPS.AddCustomerGroupRelationship, new { criteria.CustId, criteria.DeviceId });
+                }
+                else
+                {
+                    // case acc moi, device moi
+                    DbSessionFactory.Execute(FPS.CreateNewGroup, new { criteria.CustId });
+                }
+            }
+        }
+
         static FPSController()
         {
-            //thread = new Thread(RunQueue);
+            thread = new Thread(RunQueue);
 
-            //thread.Start();
+            thread.Start();
         }
     }
 }
