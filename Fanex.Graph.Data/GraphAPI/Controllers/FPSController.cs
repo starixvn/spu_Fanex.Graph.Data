@@ -1,4 +1,7 @@
-﻿using Fanex.Graph.Data;
+﻿using EasyNetQ;
+using EasyNetQ.Topology;
+using Fanex.Graph.Data;
+using Fanex.Graph.Data.Models.Core;
 using Fanex.Logging;
 using GraphAPI.Criteria;
 using System;
@@ -12,18 +15,63 @@ namespace GraphAPI.Controllers
 {
     public class FPSController : ApiController
     {
-        private static ConcurrentQueue<AddCustomerAndAssociationCriteria> q = new ConcurrentQueue<AddCustomerAndAssociationCriteria>();
+        private static IAdvancedBus _advancedBus;
 
-        private static Thread thread;
+        static FPSController()
+        {
+            var connectionString = string.Format(
+                "host={0};virtualHost={1};prefetchcount={2};username={3};password={4}",
+                AppSetting.Host,
+                AppSetting.VirtualHost,
+                AppSetting.PrefetchCount,
+                AppSetting.Username,
+                AppSetting.Password);
 
-        private static int batch = 2;
+            _advancedBus = RabbitHutch.CreateBus(connectionString).Advanced;
+            var _queue = _advancedBus.QueueDeclare(AppSetting.QueueName);
+            var _exchange = _advancedBus.ExchangeDeclare(AppSetting.ExchangeName, ExchangeType.Direct);
+            _advancedBus.Bind(_exchange, _queue, AppSetting.RoutingKey);
+
+            try
+            {
+                _advancedBus.Consume(_queue,
+                    registration => registration.Add<AddCustomerAndAssociationCriteria>((message, info) =>
+                    {
+                        InsertCustomer(message.Body);
+                    }));
+            }
+            catch (Exception ex)
+            {
+                LogService.Info(ex.Message, ex);
+            }
+        }
+
+        public static void GetMessageFromQueue(object o)
+        {
+           
+        }
 
         [HttpPost]
         public void AddAssociation(AddCustomerAndAssociationCriteria criteria)
         {
+#if DEBUG
+            criteria.CustId = 32297449;
+            criteria.Username = "BV890988888";
+            criteria.Username2 = null;
+            criteria.RoleId = 1;
+            criteria.CurrencyId = 16;
+            criteria.CurrencyName = "Yen";
+            criteria.SubscriberId = 169;
+            criteria.DeviceId = 59671118;
+#endif
             criteria.CreatedDate = DateTime.Now.ToString();
 
-            q.Enqueue(criteria);
+            var _queue = _advancedBus.QueueDeclare(AppSetting.QueueName);
+            var _exchange = _advancedBus.ExchangeDeclare(AppSetting.ExchangeName, ExchangeType.Direct);
+            _advancedBus.Bind(_exchange, _queue, AppSetting.RoutingKey);
+
+            var message = new Message<AddCustomerAndAssociationCriteria>(criteria);
+            _advancedBus.PublishAsync(_exchange, AppSetting.RoutingKey, true, message);
         }
 
         [HttpPost]
@@ -43,28 +91,6 @@ namespace GraphAPI.Controllers
         public object UpdateUsername2(UpdateUsername2Criteria criteria)
         {
             return DbSessionFactory.Execute(FPS.UpdateCustomerUsername2, criteria);
-        }
-
-        public static void RunQueue(object o)
-        {
-            while (true)
-            {
-                try
-                {
-                    var tsks = Enumerable.Range(0, batch).Select(_ =>
-                    {
-                        q.TryDequeue(out var criteria);
-
-                        return criteria == null ? Task.CompletedTask : new Task(() => InsertCustomer(criteria));
-                    }).ToArray();
-
-                    Task.WaitAll(tsks);
-                }
-                catch (Exception ex)
-                {
-                    LogService.Info(ex.Message, ex);
-                }
-            }
         }
 
         private static void InsertCustomer(AddCustomerAndAssociationCriteria criteria)
@@ -103,13 +129,6 @@ namespace GraphAPI.Controllers
                     DbSessionFactory.Execute(FPS.CreateNewGroup, new { criteria.CustId });
                 }
             }
-        }
-
-        static FPSController()
-        {
-            thread = new Thread(RunQueue);
-
-            thread.Start();
         }
     }
 }

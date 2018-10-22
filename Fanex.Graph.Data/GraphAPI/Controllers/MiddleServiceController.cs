@@ -1,7 +1,7 @@
 ﻿namespace GraphAPI.Controllers
 {
     using Fanex.Graph.Data;
-    using GraphAPI.Model;
+    using Fanex.Graph.Data.Models;
     using System.Collections.Generic;
     using System.Web.Http;
 
