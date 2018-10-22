@@ -1,14 +1,10 @@
 ﻿using EasyNetQ;
-using EasyNetQ.Topology;
 using Fanex.Graph.Data;
-using Fanex.Graph.Data.Models.Core;
-using Fanex.Logging;
 using GraphAPI.Criteria;
+using GraphAPI.Service.Implement.FPS;
+using GraphAPI.Service.Interface;
 using System;
-using System.Collections.Concurrent;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace GraphAPI.Controllers
@@ -16,39 +12,13 @@ namespace GraphAPI.Controllers
     public class FPSController : ApiController
     {
         private static IAdvancedBus _advancedBus;
+        private static IAsyncQueue<AddCustomerAndAssociationCriteria> queue;
 
         static FPSController()
         {
-            var connectionString = string.Format(
-                "host={0};virtualHost={1};prefetchcount={2};username={3};password={4}",
-                AppSetting.Host,
-                AppSetting.VirtualHost,
-                AppSetting.PrefetchCount,
-                AppSetting.Username,
-                AppSetting.Password);
+            queue = new EasyNetQService();
 
-            _advancedBus = RabbitHutch.CreateBus(connectionString).Advanced;
-            var _queue = _advancedBus.QueueDeclare(AppSetting.QueueName);
-            var _exchange = _advancedBus.ExchangeDeclare(AppSetting.ExchangeName, ExchangeType.Direct);
-            _advancedBus.Bind(_exchange, _queue, AppSetting.RoutingKey);
-
-            try
-            {
-                _advancedBus.Consume(_queue,
-                    registration => registration.Add<AddCustomerAndAssociationCriteria>((message, info) =>
-                    {
-                        InsertCustomer(message.Body);
-                    }));
-            }
-            catch (Exception ex)
-            {
-                LogService.Info(ex.Message, ex);
-            }
-        }
-
-        public static void GetMessageFromQueue(object o)
-        {
-           
+            queue.AddHandler(InsertCustomer);
         }
 
         [HttpPost]
@@ -66,12 +36,7 @@ namespace GraphAPI.Controllers
 #endif
             criteria.CreatedDate = DateTime.Now.ToString();
 
-            var _queue = _advancedBus.QueueDeclare(AppSetting.QueueName);
-            var _exchange = _advancedBus.ExchangeDeclare(AppSetting.ExchangeName, ExchangeType.Direct);
-            _advancedBus.Bind(_exchange, _queue, AppSetting.RoutingKey);
-
-            var message = new Message<AddCustomerAndAssociationCriteria>(criteria);
-            _advancedBus.PublishAsync(_exchange, AppSetting.RoutingKey, true, message);
+            queue.Enqueue(criteria);
         }
 
         [HttpPost]
