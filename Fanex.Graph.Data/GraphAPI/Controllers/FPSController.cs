@@ -1,5 +1,4 @@
-﻿using EasyNetQ;
-using Fanex.Graph.Data;
+﻿using Fanex.Graph.Data;
 using GraphAPI.Criteria;
 using GraphAPI.Service.Implement.FPS;
 using GraphAPI.Service.Interface;
