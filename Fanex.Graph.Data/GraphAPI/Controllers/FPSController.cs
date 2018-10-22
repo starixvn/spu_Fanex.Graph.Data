@@ -15,7 +15,7 @@ namespace GraphAPI.Controllers
 
         static FPSController()
         {
-            
+            LogService.Error("FPSController - may chay cho tao");
             try
             {
                 queue = new EasyNetQService();
@@ -42,7 +42,7 @@ namespace GraphAPI.Controllers
             criteria.DeviceId = 59671118;
 #endif
             criteria.CreatedDate = DateTime.Now.ToString();
-
+            LogService.Error("AddAssociation - may chay cho tao");
             queue.Enqueue(criteria);
         }
 
