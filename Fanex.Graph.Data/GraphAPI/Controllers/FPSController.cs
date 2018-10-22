@@ -1,4 +1,5 @@
 ﻿using Fanex.Graph.Data;
+using Fanex.Logging;
 using GraphAPI.Criteria;
 using GraphAPI.Service.Implement.FPS;
 using GraphAPI.Service.Interface;
@@ -14,9 +15,17 @@ namespace GraphAPI.Controllers
 
         static FPSController()
         {
-            queue = new EasyNetQService();
-
-            queue.AddHandler(InsertCustomer);
+            
+            try
+            {
+                queue = new EasyNetQService();
+                queue.AddHandler(InsertCustomer);
+            }
+            catch (Exception ex)
+            {
+                LogService.Error(ex.Message);
+            }
+            
         }
 
         [HttpPost]
