@@ -5,6 +5,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace GraphAPI.Controllers
@@ -14,6 +15,8 @@ namespace GraphAPI.Controllers
         private static ConcurrentQueue<AddCustomerAndAssociationCriteria> q = new ConcurrentQueue<AddCustomerAndAssociationCriteria>();
 
         private static Thread thread;
+
+        private static int batch = 2;
 
         [HttpPost]
         public void AddAssociation(AddCustomerAndAssociationCriteria criteria)
@@ -48,12 +51,14 @@ namespace GraphAPI.Controllers
             {
                 try
                 {
-                    q.TryDequeue(out var criteria);
-
-                    if (criteria != null)
+                    var tsks = Enumerable.Range(0, batch).Select(_ =>
                     {
-                        InsertCustomer(criteria);
-                    }
+                        q.TryDequeue(out var criteria);
+
+                        return criteria == null ? Task.CompletedTask : new Task(() => InsertCustomer(criteria));
+                    }).ToArray();
+
+                    Task.WaitAll(tsks);
                 }
                 catch (Exception ex)
                 {
@@ -83,10 +88,6 @@ namespace GraphAPI.Controllers
                     {
                         DbSessionFactory.Execute(Jobs.MergeGroup, new { criteria.CustId, criteria.DeviceId });
                     }
-                }
-                else
-                {
-                    // case acc cu, device moi
                 }
             }
             else
