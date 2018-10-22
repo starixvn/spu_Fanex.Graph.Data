@@ -11,7 +11,6 @@ namespace GraphAPI.Controllers
 {
     public class FPSController : ApiController
     {
-        private static IAdvancedBus _advancedBus;
         private static IAsyncQueue<AddCustomerAndAssociationCriteria> queue;
 
         static FPSController()
