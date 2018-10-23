@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TestConsole
 {
-    internal class Program
+    internal static class Program
     {
         private static void Main(string[] args)
         {
@@ -38,31 +38,24 @@ namespace TestConsole
             foreach (var item in associations)
             {
                 custDict.TryGetValue(item.Customer, out var customer);
-
-                if (customer == null)
+                
+                var criteria = new AddCustomerAndAssociationCriteria
                 {
-                    Console.WriteLine($"No cust data for {item.Customer}");
-                }
-                else
-                {
-                    var criteria = new AddCustomerAndAssociationCriteria
-                    {
-                        CurrencyId = customer.Currency,
-                        CurrencyName = customer.CurrencyName,
-                        CustId = customer.Id,
-                        DeviceId = item.Device,
-                        FpsAccountId = customer.FpsId,
-                        IsDeposit = customer.Deposit,
-                        RoleId = customer.RoleId,
-                        SubscriberId = customer.SubscriberId,
-                        Username = customer.Username,
-                        Username2 = customer.Username2
-                    };
+                    CurrencyId = customer?.Currency,
+                    CurrencyName = customer?.CurrencyName,
+                    CustId = item.Customer,
+                    DeviceId = item.Device,
+                    FpsAccountId = Pick(customer?.FpsId),
+                    IsDeposit = Pick(customer?.Deposit),
+                    RoleId = Pick(customer?.RoleId),
+                    SubscriberId = Pick(customer?.SubscriberId),
+                    Username = customer?.Username,
+                    Username2 = customer?.Username2
+                };
 
-                    var tsk = Post(url, criteria);
+                var tsk = Post(url, criteria);
 
-                    Task.WaitAll(tsk);
-                }
+                Task.WaitAll(tsk);
             }
 
             Console.WriteLine("done!");
@@ -113,27 +106,37 @@ namespace TestConsole
             }
         }
 
+        public static T Pick<T>(this T? a) where T : struct
+        {
+            if (a == null)
+            {
+                return default(T);
+            }
+
+            return a.Value;
+        }
+
         public class Customer
         {
-            public int Id { get; set; }
+            public int? Id { get; set; }
 
             public string Username { get; set; }
 
             public string Username2 { get; set; }
 
-            public int RoleId { get; set; }
+            public int? RoleId { get; set; }
 
-            public int Currency { get; set; }
+            public int? Currency { get; set; }
 
             public string CurrencyName { get; set; }
 
-            public int SubscriberId { get; set; }
+            public int? SubscriberId { get; set; }
 
-            public int FpsId { get; set; }
+            public int? FpsId { get; set; }
 
-            public bool Deposit { get; set; }
+            public bool? Deposit { get; set; }
 
-            public DateTime CreatedDate { get; set; }
+            public DateTime? CreatedDate { get; set; }
 
             public static Customer Parse(string row)
             {
