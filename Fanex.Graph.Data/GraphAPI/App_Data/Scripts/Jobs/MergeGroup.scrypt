@@ -15,7 +15,7 @@ WITH
 WHERE bigGroup <> smallGroup
 WITH bigGroup, smallGroup
 MATCH (needMergeCus:Customer)-[:BELONG_TO]->(smallGroup)
-CREATE (needMergeCus)-[:BELONG_TO]->(bigGroup)
+MERGE (needMergeCus)-[:BELONG_TO]->(bigGroup)
 WITH DISTINCT bigGroup, smallGroup
 SET bigGroup.CustomerQuantity = bigGroup.CustomerQuantity + smallGroup.CustomerQuantity
 DETACH DELETE smallGroup
