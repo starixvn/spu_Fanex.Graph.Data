@@ -18,13 +18,13 @@ namespace GraphAPI.Controllers
             try
             {
                 queue = new EasyNetQService();
+
                 queue.AddHandler(InsertCustomer);
             }
             catch (Exception ex)
             {
                 LogService.Error(ex.Message);
             }
-            
         }
 
         [HttpPost]
