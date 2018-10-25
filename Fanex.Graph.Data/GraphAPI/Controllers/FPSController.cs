@@ -1,6 +1,7 @@
 ﻿using Fanex.Graph.Data;
 using Fanex.Logging;
 using GraphAPI.Criteria;
+using GraphAPI.Helper;
 using GraphAPI.Service.Implement.FPS;
 using GraphAPI.Service.Interface;
 using System;
@@ -41,6 +42,9 @@ namespace GraphAPI.Controllers
             criteria.DeviceId = 59671118;
 #endif
             criteria.CreatedDate = DateTime.Now.ToString();
+
+            LogService.Info($"{criteria.CustId} - {criteria.DeviceId} - {criteria.CreatedDate}");
+
             queue.Enqueue(criteria);
         }
 
@@ -104,7 +108,7 @@ namespace GraphAPI.Controllers
             }
             catch (Exception ex)
             {
-                LogService.Error(ex.Message, ex);
+                LogService.Error($"{ex.Message}\n{criteria.FormatJson()}", ex);
             }
         }
     }
