@@ -65,39 +65,46 @@ namespace GraphAPI.Controllers
 
         private static void InsertCustomer(AddCustomerAndAssociationCriteria criteria)
         {
-            var custId = DbSessionFactory.Query<int>(FPS.GetCustomerById, new { criteria.CustId });
-            var deviceId = DbSessionFactory.Query<int>(FPS.GetDeviceById, new { criteria.DeviceId });
-            var association = DbSessionFactory.Query<int>(FPS.CheckExistedAssociation, new { criteria.CustId, criteria.DeviceId });
-
-            DbSessionFactory.Execute(FPS.AddAssociation, criteria);
-
-            if (custId.Any())
+            try
             {
-                if (deviceId.Any())
+                var custId = DbSessionFactory.Query<int>(FPS.GetCustomerById, new { criteria.CustId });
+                var deviceId = DbSessionFactory.Query<int>(FPS.GetDeviceById, new { criteria.DeviceId });
+                var association = DbSessionFactory.Query<int>(FPS.CheckExistedAssociation, new { criteria.CustId, criteria.DeviceId });
+
+                DbSessionFactory.Execute(FPS.AddAssociation, criteria);
+
+                if (custId.Any())
                 {
-                    // case acc cu, device cu
-                    if (association.Any())
+                    if (deviceId.Any())
                     {
-                        DbSessionFactory.Execute(FPS.UpdateCustomerUsername2, new { criteria.CustId, criteria.Username2 });
+                        // case acc cu, device cu
+                        if (association.Any())
+                        {
+                            DbSessionFactory.Execute(FPS.UpdateCustomerUsername2, new { criteria.CustId, criteria.Username2 });
+                        }
+                        else
+                        {
+                            DbSessionFactory.Execute(Jobs.MergeGroup, new { criteria.CustId, criteria.DeviceId });
+                        }
                     }
-                    else
-                    {
-                        DbSessionFactory.Execute(Jobs.MergeGroup, new { criteria.CustId, criteria.DeviceId });
-                    }
-                }
-            }
-            else
-            {
-                if (deviceId.Any())
-                {
-                    // case acc moi, device cu
-                    DbSessionFactory.Execute(FPS.AddCustomerGroupRelationship, new { criteria.CustId, criteria.DeviceId });
                 }
                 else
                 {
-                    // case acc moi, device moi
-                    DbSessionFactory.Execute(FPS.CreateNewGroup, new { criteria.CustId });
+                    if (deviceId.Any())
+                    {
+                        // case acc moi, device cu
+                        DbSessionFactory.Execute(FPS.AddCustomerGroupRelationship, new { criteria.CustId, criteria.DeviceId });
+                    }
+                    else
+                    {
+                        // case acc moi, device moi
+                        DbSessionFactory.Execute(FPS.CreateNewGroup, new { criteria.CustId });
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                LogService.Error(ex.Message, ex);
             }
         }
     }
