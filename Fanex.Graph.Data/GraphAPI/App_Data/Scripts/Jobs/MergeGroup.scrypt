@@ -5,6 +5,7 @@ MATCH (d)<-[:USED]-(c1:Customer)-[:BELONG_TO]->(g1:Group)
 WHERE c1.CustId <> c.CustId
 WITH g1, c LIMIT 1
 MATCH (c)-[:BELONG_TO]->(g:Group)
+WITH g, g1 LIMIT 1
 WITH 
 	CASE
     	WHEN g1.CustomerQuantity > g.CustomerQuantity THEN g1
@@ -14,8 +15,11 @@ WITH
         ELSE g1 END AS smallGroup
 WHERE bigGroup <> smallGroup
 WITH bigGroup, smallGroup
-MATCH (needMergeCus:Customer)-[:BELONG_TO]->(smallGroup)
+MATCH (needMergeCus:Customer)-[b:BELONG_TO]->(smallGroup)
+SET needMergeCus.Lock = true
 MERGE (needMergeCus)-[:BELONG_TO]->(bigGroup)
+DELETE b
+REMOVE needMergeCus.Lock
 WITH DISTINCT bigGroup, smallGroup
 SET bigGroup.CustomerQuantity = bigGroup.CustomerQuantity + smallGroup.CustomerQuantity
 DETACH DELETE smallGroup
