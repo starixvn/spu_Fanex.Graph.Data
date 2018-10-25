@@ -16,10 +16,9 @@ WITH
 WHERE bigGroup <> smallGroup
 WITH bigGroup, smallGroup
 MATCH (needMergeCus:Customer)-[b:BELONG_TO]->(smallGroup)
-SET needMergeCus.Lock = true
+SET b.Lock = true
 MERGE (needMergeCus)-[:BELONG_TO]->(bigGroup)
 DELETE b
-REMOVE needMergeCus.Lock
 WITH DISTINCT bigGroup, smallGroup
 SET bigGroup.CustomerQuantity = bigGroup.CustomerQuantity + smallGroup.CustomerQuantity
 DETACH DELETE smallGroup
