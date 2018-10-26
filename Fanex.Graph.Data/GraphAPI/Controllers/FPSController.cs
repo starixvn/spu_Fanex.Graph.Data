@@ -1,6 +1,6 @@
 ﻿using Fanex.Graph.Data;
-using Fanex.Logging;
 using GraphAPI.Criteria;
+using GraphAPI.Factory;
 using GraphAPI.Helper;
 using GraphAPI.Service.Implement.FPS;
 using GraphAPI.Service.Interface;
@@ -21,11 +21,11 @@ namespace GraphAPI.Controllers
             {
                 queue = new EasyNetQService();
 
-                queue.AddHandler(InsertCustomer);
+                //queue.AddHandler(InsertCustomer);
             }
             catch (Exception ex)
             {
-                LogService.Error(ex.Message);
+                Logger.Error(ex.Message, ex);
             }
         }
 
@@ -44,7 +44,7 @@ namespace GraphAPI.Controllers
 #endif
             criteria.CreatedDate = DateTime.Now.ToString();
 
-            LogService.Info($"{criteria.CustId} - {criteria.DeviceId} - {criteria.CreatedDate}");
+            Logger.Info($"{criteria.CustId} - {criteria.DeviceId} - {criteria.CreatedDate}");
 
             queue.Enqueue(criteria);
         }
@@ -109,7 +109,7 @@ namespace GraphAPI.Controllers
             }
             catch (Exception ex)
             {
-                LogService.Error($"{ex.Message}\n{criteria.FormatJson()}", ex);
+                Logger.Error($"{ex.Message}\n{criteria.FormatJson()}", ex);
             }
             finally
             {

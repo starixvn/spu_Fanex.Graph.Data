@@ -1,5 +1,6 @@
 ﻿using Fanex.Graph.Data;
 using GraphAPI.Neo4j;
+using System.IO;
 using System.Web.Http;
 
 namespace GraphAPI
@@ -17,6 +18,8 @@ namespace GraphAPI
                 .RegisterCommandBuilder(new Neo4jCommandBuilder("~/App_Data/scripts"))
                 .RegisterCommandExecutor(new Neo4jExecutor())
                 .Run();
+
+            log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
         }
     }
 }
