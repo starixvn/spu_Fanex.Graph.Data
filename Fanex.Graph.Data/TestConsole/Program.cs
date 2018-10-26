@@ -1,3 +1,4 @@
+using Fanex.Logging;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,51 +13,7 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
-            var customerCsv = "";
-            var associationCsv = "";
-            var url = "";
-
-            customerCsv = ConfigurationManager.AppSettings[nameof(customerCsv)];
-
-            associationCsv = ConfigurationManager.AppSettings[nameof(associationCsv)];
-
-            url = ConfigurationManager.AppSettings[nameof(url)];
-
-            var customers = ReadFile(customerCsv, Customer.Parse);
-
-            var associations = ReadFile(associationCsv, Association.Parse);
-
-            if (customers.Any(c => c == null) || associations.Any(a => a == null))
-            {
-                Console.ReadLine();
-
-                return;
-            }
-
-            var custDict = customers.ToDictionary(c => c.Id);
-
-            foreach (var item in associations)
-            {
-                custDict.TryGetValue(item.Customer, out var customer);
-                
-                var criteria = new AddCustomerAndAssociationCriteria
-                {
-                    CurrencyId = customer?.Currency,
-                    CurrencyName = customer?.CurrencyName,
-                    CustId = item.Customer,
-                    DeviceId = item.Device,
-                    FpsAccountId = Pick(customer?.FpsId),
-                    IsDeposit = Pick(customer?.Deposit),
-                    RoleId = Pick(customer?.RoleId),
-                    SubscriberId = Pick(customer?.SubscriberId),
-                    Username = customer?.Username,
-                    Username2 = customer?.Username2
-                };
-
-                var tsk = Post(url, criteria);
-
-                Task.WaitAll(tsk);
-            }
+            LogService.Info("gi cung duoc");
 
             Console.WriteLine("done!");
 
