@@ -6,6 +6,7 @@ using GraphAPI.Service.Implement.FPS;
 using GraphAPI.Service.Interface;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Web.Http;
 
 namespace GraphAPI.Controllers
@@ -109,6 +110,10 @@ namespace GraphAPI.Controllers
             catch (Exception ex)
             {
                 LogService.Error($"{ex.Message}\n{criteria.FormatJson()}", ex);
+            }
+            finally
+            {
+                Thread.Sleep(4000);
             }
         }
     }
