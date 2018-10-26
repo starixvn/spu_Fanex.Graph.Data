@@ -1,4 +1,6 @@
 ﻿using Fanex.Graph.Data;
+using Fanex.Logging;
+using System.Web;
 using System.Web.Http;
 
 namespace GraphAPI.Controllers
@@ -8,7 +10,16 @@ namespace GraphAPI.Controllers
         [HttpGet]
         public object Hello()
         {
-            return DbSessionFactory.ExecuteSingle<string>(Test.HelloApi);
+            try
+            {
+                LogService.Info("Tao day ne!!!!!");
+                LogService.Error("Tao day ne - nhung ma bi loi~ roi !!!!!");
+                return DbSessionFactory.ExecuteSingle<string>(Test.HelloApi);
+            }
+            catch (System.Exception ex)
+            {
+                return ex.Message + "\n" + ex.StackTrace;
+            }
         }
     }
 }
