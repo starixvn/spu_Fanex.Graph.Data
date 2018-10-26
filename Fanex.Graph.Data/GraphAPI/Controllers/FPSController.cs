@@ -22,7 +22,7 @@ namespace GraphAPI.Controllers
             {
                 queue = new EasyNetQService();
 
-                //queue.AddHandler(InsertCustomer);
+                queue.AddHandler(InsertCustomer);
             }
             catch (Exception ex)
             {
@@ -119,10 +119,6 @@ namespace GraphAPI.Controllers
             catch (Exception ex)
             {
                 Logger.Error($"{ex.Message}\n{criteria.FormatJson()}", ex);
-            }
-            finally
-            {
-                Thread.Sleep(4000);
             }
         }
     }
