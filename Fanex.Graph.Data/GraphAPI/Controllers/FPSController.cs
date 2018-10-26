@@ -50,19 +50,23 @@ namespace GraphAPI.Controllers
             queue.Enqueue(criteria);
         }
 
+        // may bi ung thu/ Sua cho nay
         [HttpPost]
         public object AddEvidence(AddEvidenceCriteria criteria)
         {
-            Logger.Info(criteria.FormatJson());
-            criteria.CreatedDate = DateTime.Now.ToString();
-            return DbSessionFactory.Execute(FPS.AddCustomerAndEvidence, criteria);
+            //Logger.Info(criteria.FormatJson());
+            //criteria.CreatedDate = DateTime.Now.ToString();
+            //return DbSessionFactory.Execute(FPS.AddCustomerAndEvidence, criteria);
+            return null;
         }
 
         [HttpPost]
         public object RemoveEvidenceByCustomerList(RemoveEvidenceByCustomerListCriteria criteria)
         {
-            Logger.Info(criteria.FormatJson());
-            return DbSessionFactory.Execute(FPS.RemoveEvidenceByCustomerList, criteria);
+            //Logger.Info(criteria.FormatJson());
+            //return DbSessionFactory.Execute(FPS.RemoveEvidenceByCustomerList, criteria);
+            return null;
+
         }
 
         [HttpPost]
