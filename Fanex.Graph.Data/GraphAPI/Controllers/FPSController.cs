@@ -17,6 +17,7 @@ namespace GraphAPI.Controllers
 
         static FPSController()
         {
+            Logger.Info("constructor");
             try
             {
                 queue = new EasyNetQService();
@@ -52,6 +53,7 @@ namespace GraphAPI.Controllers
         [HttpPost]
         public object AddEvidence(AddEvidenceCriteria criteria)
         {
+            Logger.Info(criteria.FormatJson());
             criteria.CreatedDate = DateTime.Now.ToString();
             return DbSessionFactory.Execute(FPS.AddCustomerAndEvidence, criteria);
         }
@@ -59,17 +61,20 @@ namespace GraphAPI.Controllers
         [HttpPost]
         public object RemoveEvidenceByCustomerList(RemoveEvidenceByCustomerListCriteria criteria)
         {
+            Logger.Info(criteria.FormatJson());
             return DbSessionFactory.Execute(FPS.RemoveEvidenceByCustomerList, criteria);
         }
 
         [HttpPost]
         public object UpdateUsername2(UpdateUsername2Criteria criteria)
         {
+            Logger.Info(criteria.FormatJson());
             return DbSessionFactory.Execute(FPS.UpdateCustomerUsername2, criteria);
         }
 
         private static void InsertCustomer(AddCustomerAndAssociationCriteria criteria)
         {
+            Logger.Info(criteria.FormatJson());
             try
             {
                 var custId = DbSessionFactory.Query<int>(FPS.GetCustomerById, new { criteria.CustId });
