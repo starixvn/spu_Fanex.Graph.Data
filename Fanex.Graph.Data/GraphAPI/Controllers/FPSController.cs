@@ -20,8 +20,10 @@ namespace GraphAPI.Controllers
             try
             {
                 queue = new EasyNetQService();
-
-                queue.AddHandler(InsertCustomer);
+                if (Convert.ToBoolean(AppSettings.IsTurnOnQueueHandling))
+                {
+                    queue.AddHandler(InsertCustomer);
+                }
             }
             catch (Exception ex)
             {
@@ -92,7 +94,7 @@ namespace GraphAPI.Controllers
                         }
                         else
                         {
-                            DbSessionFactory.Execute(Jobs.MergeGroup, new { criteria.CustId, criteria.DeviceId });
+                            DbSessionFactory.Execute(FPS.MergeGroup, new { criteria.CustId, criteria.DeviceId });
                         }
                     }
                 }

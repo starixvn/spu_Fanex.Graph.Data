@@ -16,11 +16,9 @@
     <GraphSetting Key="GetDeviceById" SpName="GetDeviceById" DbName="DB.MiddleService" />
     <GraphSetting Key="AddAssociation" SpName="AddAssociation" DbName="DB.MiddleService" />
     <GraphSetting Key="CheckExistedAssociation" SpName="CheckExistedAssociation" DbName="DB.MiddleService" />
+    <GraphSetting Key="MergeGroup" SpName="MergeGroup" DbName="DB.MiddleService" />
   </Function>
   <Function Name="Test">
     <GraphSetting Key="HelloApi" SpName="HelloApi" DbName="DB.MiddleService" />
-  </Function>
-  <Function Name="Jobs">
-    <GraphSetting Key="MergeGroup" SpName="MergeGroup" DbName="DB.MiddleService" />
   </Function>
 </Functions>

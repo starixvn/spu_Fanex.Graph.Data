@@ -23,14 +23,11 @@ namespace GraphAPI
                             public const string GetDeviceById = "GetDeviceById";
                             public const string AddAssociation = "AddAssociation";
                             public const string CheckExistedAssociation = "CheckExistedAssociation";
+                            public const string MergeGroup = "MergeGroup";
                     }
             public static class Test
         {
                             public const string HelloApi = "HelloApi";
-                    }
-            public static class Jobs
-        {
-                            public const string MergeGroup = "MergeGroup";
                     }
     }
 

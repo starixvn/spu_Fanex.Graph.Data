@@ -1,0 +1,43 @@
+INFO  2018-11-01 11:13:29,049 22628ms Logger                 Info               - Tao day ne!!!!!
+INFO  2018-11-01 11:13:29,083 22661ms Logger                 Info               - Tao day ne - nhung ma bi loi~ roi !!!!!
+DEBUG 2018-11-01 11:17:20,776 19068ms PersistentConnection   Debug              - Trying to connect
+DEBUG 2018-11-01 11:17:20,885 19177ms PersistentConnection   Debug              - OnConnected event fired
+INFO  2018-11-01 11:17:20,889 19181ms PersistentConnection   TryToConnect       - Connected to broker ha.nexdev.net, port 5672, vhost /FPS_Oneye_Service
+DEBUG 2018-11-01 11:17:20,922 19214ms PersistentChannel      Debug              - Persistent channel connected
+DEBUG 2018-11-01 11:17:20,964 19256ms RabbitAdvancedBus      QueueDeclare       - Declared queue msGraphDbQueue: durable=True, exclusive=False, autoDelete=False, arguments=
+DEBUG 2018-11-01 11:17:20,973 19265ms RabbitAdvancedBus      ExchangeDeclare    - Declared exchange msGraphDbExchange: type=direct, durable=True, autoDelete=False, arguments=
+DEBUG 2018-11-01 11:17:20,977 19269ms RabbitAdvancedBus      Bind               - Bound queue msGraphDbQueue to exchange msGraphDbExchange with routingKey=msGraphDbMessage and arguments=
+DEBUG 2018-11-01 11:17:20,980 19272ms RabbitAdvancedBus      QueueDeclare       - Declared queue msGraphDbQueue: durable=True, exclusive=False, autoDelete=False, arguments=
+DEBUG 2018-11-01 11:17:20,981 19273ms RabbitAdvancedBus      ExchangeDeclare    - Declared exchange msGraphDbExchange: type=direct, durable=True, autoDelete=False, arguments=
+DEBUG 2018-11-01 11:17:20,983 19275ms RabbitAdvancedBus      Bind               - Bound queue msGraphDbQueue to exchange msGraphDbExchange with routingKey=msGraphDbMessage and arguments=
+INFO  2018-11-01 11:17:28,637 26929ms InternalConsumer       StartConsuming     - Declared consumer with consumerTag 2a57c6b7-c81c-4b30-8ff1-12ef51624e38 on queue msGraphDbQueue and configuration [Priority=0, IsExclusive=False, PrefetchCount=20]
+DEBUG 2018-11-01 11:18:00,522 11361ms PersistentConnection   Debug              - Trying to connect
+DEBUG 2018-11-01 11:18:00,617 11456ms PersistentConnection   Debug              - OnConnected event fired
+INFO  2018-11-01 11:18:00,621 11460ms PersistentConnection   TryToConnect       - Connected to broker ha.nexdev.net, port 5672, vhost /FPS_Oneye_Service
+DEBUG 2018-11-01 11:18:00,655 11494ms PersistentChannel      Debug              - Persistent channel connected
+DEBUG 2018-11-01 11:18:00,756 11594ms RabbitAdvancedBus      QueueDeclare       - Declared queue msGraphDbQueue: durable=True, exclusive=False, autoDelete=False, arguments=
+DEBUG 2018-11-01 11:18:00,764 11603ms RabbitAdvancedBus      ExchangeDeclare    - Declared exchange msGraphDbExchange: type=direct, durable=True, autoDelete=False, arguments=
+DEBUG 2018-11-01 11:18:00,769 11608ms RabbitAdvancedBus      Bind               - Bound queue msGraphDbQueue to exchange msGraphDbExchange with routingKey=msGraphDbMessage and arguments=
+DEBUG 2018-11-01 11:18:00,773 11612ms RabbitAdvancedBus      QueueDeclare       - Declared queue msGraphDbQueue: durable=True, exclusive=False, autoDelete=False, arguments=
+DEBUG 2018-11-01 11:18:00,775 11614ms RabbitAdvancedBus      ExchangeDeclare    - Declared exchange msGraphDbExchange: type=direct, durable=True, autoDelete=False, arguments=
+DEBUG 2018-11-01 11:18:00,777 11616ms RabbitAdvancedBus      Bind               - Bound queue msGraphDbQueue to exchange msGraphDbExchange with routingKey=msGraphDbMessage and arguments=
+DEBUG 2018-11-01 11:23:58,287  5321ms PersistentConnection   Debug              - Trying to connect
+DEBUG 2018-11-01 11:23:58,411  5446ms PersistentConnection   Debug              - OnConnected event fired
+INFO  2018-11-01 11:23:58,415  5449ms PersistentConnection   TryToConnect       - Connected to broker ha.nexdev.net, port 5672, vhost /FPS_Oneye_Service
+DEBUG 2018-11-01 11:23:58,448  5482ms PersistentChannel      Debug              - Persistent channel connected
+DEBUG 2018-11-01 11:23:58,455  5490ms RabbitAdvancedBus      QueueDeclare       - Declared queue msGraphDbQueue: durable=True, exclusive=False, autoDelete=False, arguments=
+DEBUG 2018-11-01 11:23:58,463  5498ms RabbitAdvancedBus      ExchangeDeclare    - Declared exchange msGraphDbExchange: type=direct, durable=True, autoDelete=False, arguments=
+DEBUG 2018-11-01 11:23:58,468  5502ms RabbitAdvancedBus      Bind               - Bound queue msGraphDbQueue to exchange msGraphDbExchange with routingKey=msGraphDbMessage and arguments=
+DEBUG 2018-11-01 11:23:58,470  5504ms RabbitAdvancedBus      QueueDeclare       - Declared queue msGraphDbQueue: durable=True, exclusive=False, autoDelete=False, arguments=
+DEBUG 2018-11-01 11:23:58,471  5505ms RabbitAdvancedBus      ExchangeDeclare    - Declared exchange msGraphDbExchange: type=direct, durable=True, autoDelete=False, arguments=
+DEBUG 2018-11-01 11:23:58,473  5507ms RabbitAdvancedBus      Bind               - Bound queue msGraphDbQueue to exchange msGraphDbExchange with routingKey=msGraphDbMessage and arguments=
+INFO  2018-11-01 11:23:59,600  6634ms InternalConsumer       StartConsuming     - Declared consumer with consumerTag 2637022c-9717-492c-88b8-0a812ff77fc6 on queue msGraphDbQueue and configuration [Priority=0, IsExclusive=False, PrefetchCount=20]
+DEBUG 2018-11-01 11:24:14,423 21457ms RabbitAdvancedBus      MoveNext           - Published to exchange msGraphDbExchange with routingKey=msGraphDbMessage and correlationId=54c62d74-d5d0-4b27-acc0-c1d973edf7f6
+DEBUG 2018-11-01 11:24:14,443 21477ms BasicConsumer          HandleBasicDeliver - Message delivered to consumer 2637022c-9717-492c-88b8-0a812ff77fc6 with deliveryTag 1
+DEBUG 2018-11-01 11:24:14,449 21483ms HandlerRunner          MoveNext           - Received message with receivedInfo=[ConsumerTag=2637022c-9717-492c-88b8-0a812ff77fc6, DeliverTag=1, Redelivered=False, Exchange=msGraphDbExchange, RoutingKey=msGraphDbMessage, Queue=msGraphDbQueue]
+DEBUG 2018-11-01 11:27:03,607 190642ms RabbitAdvancedBus      MoveNext           - Published to exchange msGraphDbExchange with routingKey=msGraphDbMessage and correlationId=d8bc6d86-427e-405a-a9d0-64a320d83750
+DEBUG 2018-11-01 11:27:03,611 190646ms BasicConsumer          HandleBasicDeliver - Message delivered to consumer 2637022c-9717-492c-88b8-0a812ff77fc6 with deliveryTag 2
+DEBUG 2018-11-01 11:27:03,611 190646ms HandlerRunner          MoveNext           - Received message with receivedInfo=[ConsumerTag=2637022c-9717-492c-88b8-0a812ff77fc6, DeliverTag=2, Redelivered=False, Exchange=msGraphDbExchange, RoutingKey=msGraphDbMessage, Queue=msGraphDbQueue]
+DEBUG 2018-11-01 11:27:21,981 209015ms RabbitAdvancedBus      MoveNext           - Published to exchange msGraphDbExchange with routingKey=msGraphDbMessage and correlationId=abe73e0e-3954-4717-8bbf-d7628c5bde1e
+DEBUG 2018-11-01 11:27:22,022 209056ms BasicConsumer          HandleBasicDeliver - Message delivered to consumer 2637022c-9717-492c-88b8-0a812ff77fc6 with deliveryTag 3
+DEBUG 2018-11-01 11:27:22,023 209057ms HandlerRunner          MoveNext           - Received message with receivedInfo=[ConsumerTag=2637022c-9717-492c-88b8-0a812ff77fc6, DeliverTag=3, Redelivered=False, Exchange=msGraphDbExchange, RoutingKey=msGraphDbMessage, Queue=msGraphDbQueue]
