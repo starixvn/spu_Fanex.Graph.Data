@@ -1,5 +1,6 @@
 ﻿using Fanex.Graph.Data;
 using Fanex.Graph.Data.Neo4j;
+using System.IO;
 using System.ServiceProcess;
 
 namespace GraphBackgroundService
@@ -18,6 +19,8 @@ namespace GraphBackgroundService
                 .RegisterCommandBuilder(new Neo4jCommandBuilder("~/App_Data/scripts"))
                 .RegisterCommandExecutor(new Neo4jExecutor())
                 .Run();
+
+            log4net.Config.XmlConfigurator.Configure(new FileInfo(Utilities.ResolvePathForFile("~/GraphBackgroundService.exe.config")));
 
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
