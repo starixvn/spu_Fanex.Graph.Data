@@ -13,8 +13,15 @@ namespace Fanex.Graph.Data
 
                 var file = new FileInfo(location.Replace("file:///", ""));
 
-                var result = file.Directory.Parent.GetDirectories(path.Replace("~/", ""))[0];
+                var arr = path.Replace("~/", "").Split('/');
 
+                var result = file.Directory.Parent;
+
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    result = result.GetDirectories(arr[i], SearchOption.AllDirectories)[0];
+                }
+               
                 return result.FullName;
             }
 

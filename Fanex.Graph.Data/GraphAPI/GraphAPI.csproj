@@ -156,9 +156,6 @@
     <Compile Include="Helper\ObjectHelper.cs" />
     <Compile Include="Models\CustomerGroup.cs" />
     <Compile Include="Models\Group.cs" />
-    <Compile Include="Neo4j\Neo4jCommandBuilder.cs" />
-    <Compile Include="Neo4j\Neo4jDriverFactory.cs" />
-    <Compile Include="Neo4j\Neo4jExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Implement\FPS\EasyNetQService.cs" />
     <Compile Include="Service\Interface\IAsyncQueue.cs" />

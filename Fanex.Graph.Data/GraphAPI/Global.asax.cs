@@ -1,5 +1,5 @@
 ﻿using Fanex.Graph.Data;
-using GraphAPI.Neo4j;
+using Fanex.Graph.Data.Neo4j;
 using System.IO;
 using System.Web.Http;
 

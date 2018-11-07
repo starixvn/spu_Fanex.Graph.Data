@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GraphAPI.Neo4j
+namespace Fanex.Graph.Data.Neo4j
 {
     public class Neo4jExecutor : ICommandExecutor<IDriver>
     {

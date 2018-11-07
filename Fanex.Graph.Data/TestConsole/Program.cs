@@ -1,9 +1,9 @@
-using Fanex.Logging;
+using Fanex.Graph.Data;
+using Fanex.Graph.Data.Neo4j;
+using GraphBackgroundService;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -13,11 +13,21 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
-            LogService.Info("gi cung duoc");
+            DbSessionFactory.Init()
+                .RegisterConfigs("DB.MiddleService")
+                .RegisterXmlFile("~/App_Data")
+                .RegisterDriverFactory(new Neo4jDriverFactory())
+                .RegisterCommandBuilder(new Neo4jCommandBuilder("~/App_Data/scripts"))
+                .RegisterCommandExecutor(new Neo4jExecutor())
+                .Run();
 
-            Console.WriteLine("done!");
+            var a = new GraphService();
 
-            Console.ReadLine();
+            a.StartModules();
+
+            Console.WriteLine("done");
+
+            Console.Read();
         }
 
         public static async Task<TResult> Post<TResult>(string url, object param)

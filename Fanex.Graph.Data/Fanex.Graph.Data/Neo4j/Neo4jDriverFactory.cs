@@ -2,7 +2,7 @@
 using Neo4j.Driver.V1;
 using System;
 
-namespace GraphAPI.Neo4j
+namespace Fanex.Graph.Data.Neo4j
 {
     public class Neo4jDriverFactory : IDriverFactory
     {

@@ -56,6 +56,9 @@
     <Compile Include="ICommandBuilder.cs" />
     <Compile Include="ICommandExecutor.cs" />
     <Compile Include="IDriverFactory.cs" />
+    <Compile Include="Neo4j\Neo4jCommandBuilder.cs" />
+    <Compile Include="Neo4j\Neo4jDriverFactory.cs" />
+    <Compile Include="Neo4j\Neo4jExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GraphSetting.cs" />
     <Compile Include="Utilities.cs" />
