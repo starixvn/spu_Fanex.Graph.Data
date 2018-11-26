@@ -39,9 +39,6 @@ namespace GraphAPI.Controllers
             criteria.Username = "BV890988888";
             criteria.Username2 = null;
             criteria.RoleId = 1;
-            criteria.CurrencyId = 16;
-            criteria.CurrencyName = "Yen";
-            criteria.SubscriberId = 169;
             criteria.DeviceId = 59671118;
 #endif
             criteria.CreatedDate = DateTime.Now.ToString();
