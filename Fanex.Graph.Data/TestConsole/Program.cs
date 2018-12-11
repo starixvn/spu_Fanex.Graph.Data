@@ -7,44 +7,83 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace TestConsole
+namespace FillingGapDataTool
 {
     internal static class Program
     {
+        private static HttpClient web = new HttpClient();
+
         private static void Main(string[] args)
         {
-            LogService.Info("gi cung duoc");
+            var customerCsv = "";
+            var associationCsv = "";
+            var url = "";
+            var skippedRow = 0;
 
-            Console.WriteLine("done!");
+            Console.WriteLine("Reading configuration...");
+            customerCsv = ConfigurationManager.AppSettings[nameof(customerCsv)];
+            associationCsv = ConfigurationManager.AppSettings[nameof(associationCsv)];
+            url = ConfigurationManager.AppSettings[nameof(url)];
+            skippedRow = Convert.ToInt32(ConfigurationManager.AppSettings[nameof(skippedRow)]);
+
+            Console.WriteLine("Reading files...");
+            var customers = ReadFile(customerCsv, Customer.Parse);
+            var associations = ReadFile(associationCsv, Association.Parse);         
+            if (customers.Any(c => c == null) || associations.Any(a => a == null))
+            {
+                Console.ReadLine();
+                return;
+            }
+
+            var totalAssociation = associations.Count();
+
+            Console.WriteLine("Total association: " + totalAssociation + " rows");
+            int count = 0;
+            var custDict = customers.ToDictionary(c => c.Id);
+
+            foreach (var item in associations.Skip(skippedRow)) 
+            {
+                custDict.TryGetValue(item.Customer, out var customer);
+
+                var criteria = new AddCustomerAndAssociationCriteria
+                {
+                    CustId = item.Customer,
+                    DeviceId = item.Device,
+                    RoleId = Pick(customer?.RoleId),
+                    Username = customer?.Username,
+                    Username2 = customer?.Username2
+                };
+
+                var tsk = Post(url, criteria);
+                Task.WaitAll(tsk);
+                count += 1;
+                Console.WriteLine(count + " Requests were sent successfully!");
+            }
+
+            Console.WriteLine("Process done!");
 
             Console.ReadLine();
         }
 
         public static async Task<TResult> Post<TResult>(string url, object param)
         {
-            using (var web = new HttpClient())
+            var response = await web.PostAsJsonAsync(url, param).ConfigureAwait(false);
+
+            if (!response.IsSuccessStatusCode)
             {
-                var response = await web.PostAsJsonAsync(url, param).ConfigureAwait(false);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return default(TResult);
-                }
-
-                return await response.Content.ReadAsAsync<TResult>().ConfigureAwait(false);
+                return default(TResult);
             }
+
+            return await response.Content.ReadAsAsync<TResult>().ConfigureAwait(false);
         }
 
         public static async Task Post(string url, object param)
         {
-            using (var web = new HttpClient())
-            {
-                var response = await web.PostAsJsonAsync(url, param).ConfigureAwait(false);
+            var response = await web.PostAsJsonAsync(url, param).ConfigureAwait(false);
 
-                if (!response.IsSuccessStatusCode)
-                {
-                    Console.WriteLine($"Error posting {await response.Content.ReadAsStringAsync()}\n\n\n");
-                }
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"Error posting {await response.Content.ReadAsStringAsync()}\n\n\n");
             }
         }
 
@@ -83,16 +122,6 @@ namespace TestConsole
 
             public int? RoleId { get; set; }
 
-            public int? Currency { get; set; }
-
-            public string CurrencyName { get; set; }
-
-            public int? SubscriberId { get; set; }
-
-            public int? FpsId { get; set; }
-
-            public bool? Deposit { get; set; }
-
             public DateTime? CreatedDate { get; set; }
 
             public static Customer Parse(string row)
@@ -107,12 +136,7 @@ namespace TestConsole
                         Username = arr[1],
                         Username2 = arr[2],
                         RoleId = int.Parse(arr[3]),
-                        Currency = int.Parse(arr[4]),
-                        CurrencyName = arr[5],
-                        SubscriberId = int.Parse(arr[6]),
-                        FpsId = int.Parse(arr[7]),
-                        Deposit = bool.Parse(arr[8]),
-                        CreatedDate = DateTime.Parse(arr[9])
+                        CreatedDate = DateTime.Parse(arr[4])
                     };
                 }
                 catch (Exception)
@@ -156,8 +180,6 @@ namespace TestConsole
         {
             private string username2;
             private int? roleId;
-            private int? currencyId;
-            private string currencyName;
 
             public int DeviceId { get; set; }
 
@@ -177,25 +199,6 @@ namespace TestConsole
 
                 set { roleId = value; }
             }
-
-            public int? CurrencyId
-            {
-                get => currencyId == 0 ? null : currencyId;
-
-                set { currencyId = value; }
-            }
-
-            public string CurrencyName
-            {
-                get => currencyName == string.Empty ? null : currencyName;
-                set { currencyName = value; }
-            }
-
-            public int SubscriberId { get; set; }
-
-            public int FpsAccountId { get; set; }
-
-            public bool IsDeposit { get; set; }
 
             public string CreatedDate { get; set; }
         }
