@@ -13,7 +13,7 @@ namespace GraphBackgroundService
         private static void Main()
         {
             DbSessionFactory.Init()
-                .RegisterConfigs(AppSettings.DB_MiddleService)
+                .RegisterConfigs("DB.MiddleService")
                 .RegisterXmlFile("~/App_Data")
                 .RegisterDriverFactory(new Neo4jDriverFactory())
                 .RegisterCommandBuilder(new Neo4jCommandBuilder("~/App_Data/scripts"))

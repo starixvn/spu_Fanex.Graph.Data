@@ -98,7 +98,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="App.config" />
-    <Content Include="App_Data\Scripts\HelloApi.scrypt" />
+    <Content Include="App_Data\Scripts\HelloApi.scrypt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +116,7 @@
     </Content>
     <Content Include="App_Data\Script.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

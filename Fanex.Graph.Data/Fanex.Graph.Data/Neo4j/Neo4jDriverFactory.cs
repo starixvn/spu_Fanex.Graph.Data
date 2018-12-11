@@ -10,10 +10,14 @@ namespace Fanex.Graph.Data.Neo4j
         {
             var configs = config.Split(';');
 
-            return (typeof(IDriver), GraphDatabase.Driver(configs[0], AuthTokens.Basic(configs[1], configs[2]), new Config
+            var t = typeof(IDriver);
+
+            var driver = GraphDatabase.Driver(configs[0], AuthTokens.Basic(configs[1], configs[2]), new Config
             {
                 EncryptionLevel = EncryptionLevel.None
-            }));
+            });
+
+            return (t, driver);
         }
     }
 }
