@@ -45,6 +45,9 @@ namespace GraphAPI.Service.Implement.FPS
         public void Enqueue(AddCustomerAndAssociationCriteria data)
         {
             var message = new Message<AddCustomerAndAssociationCriteria>(data);
+
+            // set persistent for message
+            message.SetProperties(new MessageProperties() { DeliveryMode = 2});
             _advancedBus.PublishAsync(_receive_exchange, AppSettings.RabbitMQ_RoutingKey, true, message);
         }
     }
