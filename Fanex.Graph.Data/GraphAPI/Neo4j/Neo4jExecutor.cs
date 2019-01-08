@@ -19,7 +19,7 @@ namespace GraphAPI.Neo4j
             {
                 AffectedNodes = counters.NodesCreated + counters.NodesDeleted,
                 AffectedRelationship = counters.RelationshipsCreated + counters.RelationshipsDeleted,
-                Data = statementResult.Select(ParseRecord<T>)
+                Data = statementResult.Select(ParseRecord<T>).ToArray()
             };
         }
 

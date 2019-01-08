@@ -1,4 +1,4 @@
-﻿namespace GraphAPI.Model
+﻿namespace Fanex.Graph.Data.Models
 {
     public class Group
     {

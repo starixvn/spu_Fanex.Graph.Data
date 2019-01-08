@@ -6,8 +6,6 @@ namespace GraphAPI.Criteria
     {
         private string username2;
         private int? roleId;
-        private int? currencyId;
-        private string currencyName;
 
         public int DeviceId { get; set; }
 
@@ -27,25 +25,6 @@ namespace GraphAPI.Criteria
 
             set { roleId = value; }
         }
-
-        public int? CurrencyId
-        {
-            get => currencyId == 0 ? null : currencyId;
-
-            set { currencyId = value; }
-        }
-
-        public string CurrencyName
-        {
-            get => currencyName == string.Empty ? null : currencyName;
-            set { currencyName = value; }
-        }
-
-        public int SubscriberId { get; set; }
-
-        public int FpsAccountId { get; set; }
-
-        public bool IsDeposit { get; set; }
 
         public string CreatedDate { get; set; }
     }
