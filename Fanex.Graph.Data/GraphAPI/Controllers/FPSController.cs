@@ -42,8 +42,10 @@ namespace GraphAPI.Controllers
             criteria.DeviceId = 59671118;
 #endif
             criteria.CreatedDate = DateTime.Now.ToString();
-
-            queue.Enqueue(criteria);
+            if (criteria.RoleId == 1)
+            {
+                queue.Enqueue(criteria);
+            }
         }
 
         // may bi ung thu => Sua cho nay
