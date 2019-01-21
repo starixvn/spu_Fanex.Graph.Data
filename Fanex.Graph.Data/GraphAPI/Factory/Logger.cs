@@ -9,6 +9,8 @@ namespace GraphAPI.Factory
 
         public static void Error(string msg, Exception ex) => logger.Error(msg, ex);
 
+        public static void Error(string msg) => logger.Error(msg);
+
         public static void Info(string msg) => logger.Info(msg);
     }
 }

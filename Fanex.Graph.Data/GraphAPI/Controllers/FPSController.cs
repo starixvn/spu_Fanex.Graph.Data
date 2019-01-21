@@ -97,10 +97,12 @@ namespace GraphAPI.Controllers
                                 // case acc cu, device cu
                                 if (association.Any())
                                 {
+                                    Logger.Error("UpdateCustomerUsername2");
                                     DbSessionFactory.Execute(FPS.UpdateCustomerUsername2, new { criteria.CustId, criteria.Username2 });
                                 }
                                 else
                                 {
+                                    Logger.Error("MergeGroup");
                                     DbSessionFactory.Execute(FPS.MergeGroup, new { criteria.CustId, criteria.DeviceId });
                                 }
                             }
@@ -109,11 +111,13 @@ namespace GraphAPI.Controllers
                         {
                             if (deviceId.Any())
                             {
+                                Logger.Error("AddCustomerGroupRelationship");
                                 // case acc moi, device cu
                                 DbSessionFactory.Execute(FPS.AddCustomerGroupRelationship, new { criteria.CustId, criteria.DeviceId });
                             }
                             else
                             {
+                                Logger.Error("CreateNewGroup");
                                 // case acc moi, device moi
                                 DbSessionFactory.Execute(FPS.CreateNewGroup, new { criteria.CustId });
                             }
