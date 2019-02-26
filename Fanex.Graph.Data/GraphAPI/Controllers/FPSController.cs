@@ -87,7 +87,10 @@ namespace GraphAPI.Controllers
                         var association = DbSessionFactory.Query<int>(FPS.CheckExistedAssociation, new { criteria.CustId, criteria.DeviceId });
                         if (criteria.DeviceId == 0)
                         {
-                            DbSessionFactory.Execute(FPS.AddNewCustomer, criteria);
+                            if (!custId.Any())
+                            {
+                                DbSessionFactory.Execute(FPS.AddNewCustomer, criteria);
+                            }
                         }
                         else
                         {
