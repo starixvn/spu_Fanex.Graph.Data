@@ -22,6 +22,10 @@
                 Logger.Error($"GroupForCustId - {ex.Message}", ex);
             }
 
+            if (result == null)
+            {
+                Logger.Error($"GroupForCustId - Result is null !");
+            }
             return result;
         }
     }
