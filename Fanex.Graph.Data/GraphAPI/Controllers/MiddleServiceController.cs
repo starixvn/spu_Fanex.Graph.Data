@@ -28,5 +28,31 @@
             }
             return result;
         }
+
+        [HttpPost]
+        public IEnumerable<Group> GroupForCustIdOneLevel(IEnumerable<int> custIds)
+        {
+            IEnumerable<Group> result = null;
+            if (custIds != null)
+            {
+                try
+                {
+                    DbSessionFactory.Execute(MiddleSerivce.SetLabelForRunningAlgo, new { CustIdList = custIds});
+                    result = DbSessionFactory.Execute<Group>(MiddleSerivce.CheckAssociationOneLevel, new { CustIdList = custIds }).Data;
+                    DbSessionFactory.Execute(MiddleSerivce.RemoveLabelForRunningAlgo, new { CustIdList = custIds });
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error($"GroupForCustId - {ex.Message}", ex);
+                }
+
+                if (result == null)
+                {
+                    Logger.Error($"GroupForCustId - Result is null !");
+                }
+            }
+            
+            return result;
+        }
     }
 }

@@ -2,6 +2,9 @@
 <Functions>
   <Function Name="MiddleSerivce">
     <GraphSetting Key="GroupCustomer" SpName="GroupCustomer" DbName="DB.MiddleService" />
+    <GraphSetting Key="CheckAssociationOneLevel" SpName="CheckAssociationOneLevel" DbName="DB.MiddleService" />
+    <GraphSetting Key="SetLabelForRunningAlgo" SpName="SetLabelForRunningAlgo" DbName="DB.MiddleService" />
+    <GraphSetting Key="RemoveLabelForRunningAlgo" SpName="RemoveLabelForRunningAlgo" DbName="DB.MiddleService" />
   </Function>
   <Function Name="FPS">
     <GraphSetting Key="AddCustomerAndAssociation" SpName="AddCustomerAndAssociation" DbName="DB.MiddleService" />

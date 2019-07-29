@@ -1,0 +1,5 @@
+﻿MATCH (c:Customer)
+WHERE c.CustId IN $CustIdList
+WITH c
+CALL apoc.create.removeLabels(c, ["ArbCN88"]) YIELD node
+RETURN count(c) as count

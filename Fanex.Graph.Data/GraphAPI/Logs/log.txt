@@ -135,3 +135,118 @@ DEBUG 2018-11-26 11:44:01,114 25189ms HandlerRunner          MoveNext           
 DEBUG 2018-11-26 11:44:29,331 53406ms RabbitAdvancedBus      MoveNext           - Published to exchange msGraphDbExchange with routingKey=msGraphDbMessage and correlationId=938e0dc5-6068-4e7a-8c7b-a3ed15eeb451
 DEBUG 2018-11-26 11:44:29,347 53422ms BasicConsumer          HandleBasicDeliver - Message delivered to consumer 9e115821-8fe7-4a82-b45f-533e9faffd60 with deliveryTag 3
 DEBUG 2018-11-26 11:44:29,347 53422ms HandlerRunner          MoveNext           - Received message with receivedInfo=[ConsumerTag=9e115821-8fe7-4a82-b45f-533e9faffd60, DeliverTag=3, Redelivered=False, Exchange=msGraphDbExchange, RoutingKey=msGraphDbMessage, Queue=msGraphDbQueue]
+ERROR 2019-07-29 14:03:35,712 241403ms Logger                 Error              - GroupForCustId - Invalid input '$': expected whitespace or a label name (line 3, column 7 (offset: 57))
+"SET c:$LabelForArb"
+         ^
+Neo4j.Driver.V1.ClientException: Invalid input '$': expected whitespace or a label name (line 3, column 7 (offset: 57))
+"SET c:$LabelForArb"
+         ^
+   at Neo4j.Driver.Internal.Transaction.TransactionConnection.OnError(Exception error)
+   at Neo4j.Driver.Internal.Connector.DelegatedConnection.Sync()
+   at Neo4j.Driver.Internal.Transaction.CommitTx()
+   at Neo4j.Driver.Internal.Transaction.Dispose(Boolean isDisposing)
+   at Neo4j.Driver.Internal.LoggerBase.Dispose()
+   at Neo4j.Driver.Internal.Session.<>c__DisplayClass23_0`1.<RunTransaction>b__1()
+   at Neo4j.Driver.Internal.ExponentialBackoffRetryLogic.Retry[T](Func`1 runTxFunc)
+   at Neo4j.Driver.Internal.LoggerBase.TryExecute[T](Func`1 func)
+   at GraphAPI.Neo4j.Neo4jExecutor.RunStatement(IDriver driver, String command, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Neo4j\Neo4jExecutor.cs:line 58
+   at GraphAPI.Neo4j.Neo4jExecutor.Execute(IDriver driver, String command, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Neo4j\Neo4jExecutor.cs:line 28
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute4[T0,T1,T2,T3,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+   at Fanex.Graph.Data.DbSessionFactory.Execute(String key, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\Fanex.Graph.Data\DbSessionFactory.cs:line 154
+   at GraphAPI.Controllers.MiddleServiceController.GroupForCustIdOneLevel(IEnumerable`1 custIds) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Controllers\MiddleServiceController.cs:line 41
+ERROR 2019-07-29 14:03:35,766 241457ms Logger                 Error              - GroupForCustId - Result is null !
+ERROR 2019-07-29 14:17:50,312 57400ms Logger                 Error              - GroupForCustId - Invalid input '$': expected whitespace or a label name (line 3, column 7 (offset: 57))
+"SET c:$LabelForArb"
+         ^
+Neo4j.Driver.V1.ClientException: Invalid input '$': expected whitespace or a label name (line 3, column 7 (offset: 57))
+"SET c:$LabelForArb"
+         ^
+   at Neo4j.Driver.Internal.Transaction.TransactionConnection.OnError(Exception error)
+   at Neo4j.Driver.Internal.Connector.DelegatedConnection.Sync()
+   at Neo4j.Driver.Internal.Transaction.CommitTx()
+   at Neo4j.Driver.Internal.Transaction.Dispose(Boolean isDisposing)
+   at Neo4j.Driver.Internal.LoggerBase.Dispose()
+   at Neo4j.Driver.Internal.Session.<>c__DisplayClass23_0`1.<RunTransaction>b__1()
+   at Neo4j.Driver.Internal.ExponentialBackoffRetryLogic.Retry[T](Func`1 runTxFunc)
+   at Neo4j.Driver.Internal.LoggerBase.TryExecute[T](Func`1 func)
+   at GraphAPI.Neo4j.Neo4jExecutor.RunStatement(IDriver driver, String command, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Neo4j\Neo4jExecutor.cs:line 58
+   at GraphAPI.Neo4j.Neo4jExecutor.Execute(IDriver driver, String command, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Neo4j\Neo4jExecutor.cs:line 28
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute4[T0,T1,T2,T3,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+   at Fanex.Graph.Data.DbSessionFactory.Execute(String key, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\Fanex.Graph.Data\DbSessionFactory.cs:line 154
+   at GraphAPI.Controllers.MiddleServiceController.GroupForCustIdOneLevel(IEnumerable`1 custIds) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Controllers\MiddleServiceController.cs:line 42
+ERROR 2019-07-29 14:17:50,335 57423ms Logger                 Error              - GroupForCustId - Result is null !
+ERROR 2019-07-29 14:51:14,662 2061750ms Logger                 Error              - GroupForCustId - Invalid input '$': expected whitespace or a label name (line 3, column 7 (offset: 57))
+"SET c:$LabelForArb"
+         ^
+Neo4j.Driver.V1.ClientException: Invalid input '$': expected whitespace or a label name (line 3, column 7 (offset: 57))
+"SET c:$LabelForArb"
+         ^
+   at Neo4j.Driver.Internal.Transaction.TransactionConnection.OnError(Exception error)
+   at Neo4j.Driver.Internal.Connector.DelegatedConnection.Sync()
+   at Neo4j.Driver.Internal.Transaction.CommitTx()
+   at Neo4j.Driver.Internal.Transaction.Dispose(Boolean isDisposing)
+   at Neo4j.Driver.Internal.LoggerBase.Dispose()
+   at Neo4j.Driver.Internal.Session.<>c__DisplayClass23_0`1.<RunTransaction>b__1()
+   at Neo4j.Driver.Internal.ExponentialBackoffRetryLogic.Retry[T](Func`1 runTxFunc)
+   at Neo4j.Driver.Internal.LoggerBase.TryExecute[T](Func`1 func)
+   at GraphAPI.Neo4j.Neo4jExecutor.RunStatement(IDriver driver, String command, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Neo4j\Neo4jExecutor.cs:line 58
+   at GraphAPI.Neo4j.Neo4jExecutor.Execute(IDriver driver, String command, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Neo4j\Neo4jExecutor.cs:line 28
+   at Fanex.Graph.Data.DbSessionFactory.Execute(String key, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\Fanex.Graph.Data\DbSessionFactory.cs:line 154
+   at GraphAPI.Controllers.MiddleServiceController.GroupForCustIdOneLevel(IEnumerable`1 custIds) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Controllers\MiddleServiceController.cs:line 42
+ERROR 2019-07-29 14:51:15,610 2062697ms Logger                 Error              - GroupForCustId - Result is null !
+ERROR 2019-07-29 14:58:06,672 202718ms Logger                 Error              - GroupForCustId - Variable `TestLabel` not defined (line 4, column 32 (offset: 90))
+"CALL apoc.create.addLabels(c, [TestLabel]) YIELD node"
+                                   ^
+Neo4j.Driver.V1.ClientException: Variable `TestLabel` not defined (line 4, column 32 (offset: 90))
+"CALL apoc.create.addLabels(c, [TestLabel]) YIELD node"
+                                   ^
+   at Neo4j.Driver.Internal.Transaction.TransactionConnection.OnError(Exception error)
+   at Neo4j.Driver.Internal.Connector.DelegatedConnection.Sync()
+   at Neo4j.Driver.Internal.Transaction.CommitTx()
+   at Neo4j.Driver.Internal.Transaction.Dispose(Boolean isDisposing)
+   at Neo4j.Driver.Internal.LoggerBase.Dispose()
+   at Neo4j.Driver.Internal.Session.<>c__DisplayClass23_0`1.<RunTransaction>b__1()
+   at Neo4j.Driver.Internal.ExponentialBackoffRetryLogic.Retry[T](Func`1 runTxFunc)
+   at Neo4j.Driver.Internal.LoggerBase.TryExecute[T](Func`1 func)
+   at GraphAPI.Neo4j.Neo4jExecutor.RunStatement(IDriver driver, String command, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Neo4j\Neo4jExecutor.cs:line 58
+   at GraphAPI.Neo4j.Neo4jExecutor.Execute(IDriver driver, String command, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Neo4j\Neo4jExecutor.cs:line 28
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute4[T0,T1,T2,T3,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+   at Fanex.Graph.Data.DbSessionFactory.Execute(String key, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\Fanex.Graph.Data\DbSessionFactory.cs:line 154
+   at GraphAPI.Controllers.MiddleServiceController.GroupForCustIdOneLevel(IEnumerable`1 custIds) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Controllers\MiddleServiceController.cs:line 42
+ERROR 2019-07-29 14:58:06,906 202952ms Logger                 Error              - GroupForCustId - Result is null !
+ERROR 2019-07-29 15:00:05,929 44532ms Logger                 Error              - GroupForCustId - Variable `LabelForArb` not defined (line 4, column 32 (offset: 90))
+"CALL apoc.create.addLabels(c, [LabelForArb]) YIELD node"
+                                   ^
+Neo4j.Driver.V1.ClientException: Variable `LabelForArb` not defined (line 4, column 32 (offset: 90))
+"CALL apoc.create.addLabels(c, [LabelForArb]) YIELD node"
+                                   ^
+   at Neo4j.Driver.Internal.Transaction.TransactionConnection.OnError(Exception error)
+   at Neo4j.Driver.Internal.Connector.DelegatedConnection.Sync()
+   at Neo4j.Driver.Internal.Transaction.CommitTx()
+   at Neo4j.Driver.Internal.Transaction.Dispose(Boolean isDisposing)
+   at Neo4j.Driver.Internal.LoggerBase.Dispose()
+   at Neo4j.Driver.Internal.Session.<>c__DisplayClass23_0`1.<RunTransaction>b__1()
+   at Neo4j.Driver.Internal.ExponentialBackoffRetryLogic.Retry[T](Func`1 runTxFunc)
+   at Neo4j.Driver.Internal.LoggerBase.TryExecute[T](Func`1 func)
+   at GraphAPI.Neo4j.Neo4jExecutor.RunStatement(IDriver driver, String command, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Neo4j\Neo4jExecutor.cs:line 58
+   at GraphAPI.Neo4j.Neo4jExecutor.Execute(IDriver driver, String command, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Neo4j\Neo4jExecutor.cs:line 28
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute4[T0,T1,T2,T3,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+   at Fanex.Graph.Data.DbSessionFactory.Execute(String key, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\Fanex.Graph.Data\DbSessionFactory.cs:line 154
+   at GraphAPI.Controllers.MiddleServiceController.GroupForCustIdOneLevel(IEnumerable`1 custIds) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Controllers\MiddleServiceController.cs:line 42
+ERROR 2019-07-29 15:00:05,955 44558ms Logger                 Error              - GroupForCustId - Result is null !
+ERROR 2019-07-29 15:12:22,083 50227ms Logger                 Error              - GroupForCustId - Failed to invoke procedure `algo.unionFind.stream`: Caused by: org.neo4j.cypher.ParameterNotFoundException: Expected parameter(s): CustIdList
+Neo4j.Driver.V1.ClientException: Failed to invoke procedure `algo.unionFind.stream`: Caused by: org.neo4j.cypher.ParameterNotFoundException: Expected parameter(s): CustIdList
+   at Neo4j.Driver.Internal.Transaction.TransactionConnection.OnError(Exception error)
+   at Neo4j.Driver.Internal.Connector.DelegatedConnection.Sync()
+   at Neo4j.Driver.Internal.Transaction.CommitTx()
+   at Neo4j.Driver.Internal.Transaction.Dispose(Boolean isDisposing)
+   at Neo4j.Driver.Internal.LoggerBase.Dispose()
+   at Neo4j.Driver.Internal.Session.<>c__DisplayClass23_0`1.<RunTransaction>b__1()
+   at Neo4j.Driver.Internal.ExponentialBackoffRetryLogic.Retry[T](Func`1 runTxFunc)
+   at Neo4j.Driver.Internal.LoggerBase.TryExecute[T](Func`1 func)
+   at GraphAPI.Neo4j.Neo4jExecutor.RunStatement(IDriver driver, String command, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Neo4j\Neo4jExecutor.cs:line 58
+   at GraphAPI.Neo4j.Neo4jExecutor.Execute[T](IDriver driver, String command, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Neo4j\Neo4jExecutor.cs:line 14
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute4[T0,T1,T2,T3,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+   at Fanex.Graph.Data.DbSessionFactory.Execute[T](String key, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\Fanex.Graph.Data\DbSessionFactory.cs:line 141
+   at GraphAPI.Controllers.MiddleServiceController.GroupForCustIdOneLevel(IEnumerable`1 custIds) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Controllers\MiddleServiceController.cs:line 43
+ERROR 2019-07-29 15:12:23,451 51595ms Logger                 Error              - GroupForCustId - Result is null !
