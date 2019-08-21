@@ -1,11 +1,10 @@
-﻿using Fanex.Graph.Data;
-using Neo4j.Driver.V1;
+﻿using Neo4j.Driver.V1;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GraphAPI.Neo4j
+namespace Fanex.Graph.Data
 {
     public class Neo4jExecutor : ICommandExecutor<IDriver>
     {

@@ -1,5 +1,4 @@
 ﻿using Fanex.Graph.Data;
-using GraphAPI.Neo4j;
 using System.IO;
 using System.Web.Http;
 
@@ -10,7 +9,6 @@ namespace GraphAPI
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
-
             DbSessionFactory.Init()
                 .RegisterConfigs("DB.MiddleService")
                 .RegisterXmlFile("~/App_Data")

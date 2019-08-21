@@ -9,7 +9,7 @@
 
     public class MiddleServiceController : ApiController
     {
-        [HttpPost]
+        [HttpGet]
         public IEnumerable<Group> GroupForCustId(IEnumerable<int> custIds)
         {
             IEnumerable<Group> result = null;
