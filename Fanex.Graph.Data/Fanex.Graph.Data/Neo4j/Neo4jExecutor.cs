@@ -13,7 +13,6 @@ namespace Fanex.Graph.Data
             var statementResult = RunStatement(driver, command, parameters);
 
             var counters = statementResult.Summary.Counters;
-            
             return new ExecutionResult<IEnumerable<T>>
             {
                 AffectedNodes = counters.NodesCreated + counters.NodesDeleted,
