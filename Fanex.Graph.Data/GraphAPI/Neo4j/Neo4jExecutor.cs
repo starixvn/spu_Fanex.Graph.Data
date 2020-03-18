@@ -52,10 +52,13 @@ namespace GraphAPI.Neo4j
 
         private IStatementResult RunStatement(IDriver driver, string command, object parameters)
         {
+            IStatementResult result = null;
             using (var session = driver.Session())
             {
-                return session.WriteTransaction(tx => tx.Run(command, parameters));
+                result = session.WriteTransaction(tx => tx.Run(command, parameters));
             }
+
+            return result;
         }
 
         private T ParseRecord<T>(IRecord record)

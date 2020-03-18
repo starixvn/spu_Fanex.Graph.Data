@@ -12,8 +12,6 @@ namespace GraphAPI.Controllers
         {
             try
             {
-                Logger.Info("Tao day ne!!!!!");
-                Logger.Info("Tao day ne - nhung ma bi loi~ roi !!!!!");
                 return DbSessionFactory.ExecuteSingle<string>(Test.HelloApi);
             }
             catch (System.Exception ex)

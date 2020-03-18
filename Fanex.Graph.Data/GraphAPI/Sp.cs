@@ -8,6 +8,9 @@ namespace GraphAPI
             public static class MiddleSerivce
         {
                             public const string GroupCustomer = "GroupCustomer";
+                            public const string CheckAssociationOneLevel = "CheckAssociationOneLevel";
+                            public const string SetLabelForRunningAlgo = "SetLabelForRunningAlgo";
+                            public const string RemoveLabelForRunningAlgo = "RemoveLabelForRunningAlgo";
                     }
             public static class FPS
         {

@@ -187,6 +187,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="App_Data\Scripts\FPS\AddNewCustomer.scrypt" />
+    <Content Include="App_Data\Scripts\MiddleService\CheckAssociationOneLevel.scrypt" />
+    <Content Include="App_Data\Scripts\MiddleService\SetLabelForRunningAlgo.scrypt" />
+    <Content Include="App_Data\Scripts\MiddleService\RemoveLabelForRunningAlgo.scrypt" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
