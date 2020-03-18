@@ -9,6 +9,6 @@ WHERE c1:ArbCN88 AND c2:ArbCN88
 WITH * 
 SKIP $skip LIMIT $limit
 RETURN id(c1) AS source, id(c2) AS target', 
-{graph:'cypher', duplicateRelationships:'skip', concurrency:8})
+{graph:'cypher', duplicateRelationships:'skip', concurrency:6})
 YIELD nodeId,setId
 RETURN algo.asNode(nodeId).CustId AS CustId, setId AS GroupId
