@@ -1,14 +1,12 @@
 ﻿CALL algo.unionFind.stream('
-MATCH (c:Customer)
-WHERE c:ArbCN88
+MATCH (c:ArbCN88)
 WITH c 
 SKIP $skip LIMIT $limit
 RETURN id(c) as id', 
-'MATCH (c1:Customer)-[:USED]->(:Device)<-[:USED]-(c2:Customer) 
-WHERE c1:ArbCN88 AND c2:ArbCN88
+'MATCH (c1:ArbCN88)-[:USED]->(:Device)<-[:USED]-(c2:ArbCN88) 
 WITH * 
 SKIP $skip LIMIT $limit
 RETURN id(c1) AS source, id(c2) AS target', 
-{graph:'cypher', duplicateRelationships:'skip', concurrency:6})
+{graph:'cypher', duplicateRelationships:'skip', concurrency:10})
 YIELD nodeId,setId
 RETURN algo.asNode(nodeId).CustId AS CustId, setId AS GroupId
