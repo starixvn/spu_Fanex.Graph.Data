@@ -250,3 +250,14 @@ Neo4j.Driver.V1.ClientException: Failed to invoke procedure `algo.unionFind.stre
    at Fanex.Graph.Data.DbSessionFactory.Execute[T](String key, Object parameters) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\Fanex.Graph.Data\DbSessionFactory.cs:line 141
    at GraphAPI.Controllers.MiddleServiceController.GroupForCustIdOneLevel(IEnumerable`1 custIds) in D:\Work\MiddleService\Fanex.Graph.Data\Fanex.Graph.Data\GraphAPI\Controllers\MiddleServiceController.cs:line 43
 ERROR 2019-07-29 15:12:23,451 51595ms Logger                 Error              - GroupForCustId - Result is null !
+DEBUG 2020-04-13 10:09:12,189 21906ms PersistentConnection   Debug              - Trying to connect
+DEBUG 2020-04-13 10:09:12,306 22024ms PersistentConnection   Debug              - OnConnected event fired
+INFO  2020-04-13 10:09:12,309 22027ms PersistentConnection   TryToConnect       - Connected to broker ha.nexdev.net, port 5672, vhost /FPS_Oneye_Service
+DEBUG 2020-04-13 10:09:12,339 22057ms PersistentChannel      Debug              - Persistent channel connected
+DEBUG 2020-04-13 10:09:12,347 22065ms RabbitAdvancedBus      QueueDeclare       - Declared queue msGraphDbQueue: durable=True, exclusive=False, autoDelete=False, arguments=
+DEBUG 2020-04-13 10:09:12,355 22073ms RabbitAdvancedBus      ExchangeDeclare    - Declared exchange msGraphDbExchange: type=direct, durable=True, autoDelete=False, arguments=
+DEBUG 2020-04-13 10:09:12,359 22077ms RabbitAdvancedBus      Bind               - Bound queue msGraphDbQueue to exchange msGraphDbExchange with routingKey=msGraphDbMessage and arguments=
+DEBUG 2020-04-13 10:09:12,363 22080ms RabbitAdvancedBus      QueueDeclare       - Declared queue msGraphDbQueue: durable=True, exclusive=False, autoDelete=False, arguments=
+DEBUG 2020-04-13 10:09:12,364 22082ms RabbitAdvancedBus      ExchangeDeclare    - Declared exchange msGraphDbExchange: type=direct, durable=True, autoDelete=False, arguments=
+DEBUG 2020-04-13 10:09:12,366 22083ms RabbitAdvancedBus      Bind               - Bound queue msGraphDbQueue to exchange msGraphDbExchange with routingKey=msGraphDbMessage and arguments=
+INFO  2020-04-13 10:09:12,386 22104ms InternalConsumer       StartConsuming     - Declared consumer with consumerTag 82c05e49-f39e-45f7-8d6b-ca78c1fa5530 on queue msGraphDbQueue and configuration [Priority=0, IsExclusive=False, PrefetchCount=300]

@@ -2,9 +2,11 @@
 using GraphAPI.Criteria;
 using GraphAPI.Factory;
 using GraphAPI.Helper;
+using GraphAPI.Models;
 using GraphAPI.Service.Implement.FPS;
 using GraphAPI.Service.Interface;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq;
 using System.Threading;
@@ -70,6 +72,27 @@ namespace GraphAPI.Controllers
         public object UpdateUsername2(UpdateUsername2Criteria criteria)
         {
             return DbSessionFactory.Execute(FPS.UpdateCustomerUsername2, criteria);
+        }
+
+        [HttpGet]
+        public IEnumerable<CustomerAssociationLevel2> GetAssociationLevel2(string custIds)
+        {
+            var custIdList = custIds.Split(',').Select(a => Convert.ToInt32(a));
+            IEnumerable<CustomerAssociationLevel2> result = null;
+            try
+            {
+                result = DbSessionFactory.Execute<CustomerAssociationLevel2>(FPS.GetAssociationLevel2, new { CustIdList = custIdList }).Data;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"GetAssociationLevel2 - {ex.Message}", ex);
+            }
+
+            if (result == null)
+            {
+                Logger.Error($"GetAssociationLevel2 - Result is null !");
+            }
+            return result;
         }
 
         private static void InsertCustomer(AddCustomerAndAssociationCriteria criteria)

@@ -28,6 +28,7 @@ namespace GraphAPI
                             public const string AddAssociation = "AddAssociation";
                             public const string CheckExistedAssociation = "CheckExistedAssociation";
                             public const string MergeGroup = "MergeGroup";
+                            public const string GetAssociationLevel2 = "GetAssociationLevel2";
                     }
             public static class Test
         {

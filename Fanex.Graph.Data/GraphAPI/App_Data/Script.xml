@@ -21,6 +21,7 @@
     <GraphSetting Key="AddAssociation" SpName="AddAssociation" DbName="DB.MiddleService" />
     <GraphSetting Key="CheckExistedAssociation" SpName="CheckExistedAssociation" DbName="DB.MiddleService" />
     <GraphSetting Key="MergeGroup" SpName="MergeGroup" DbName="DB.MiddleService" />
+    <GraphSetting Key="GetAssociationLevel2" SpName="GetAssociationLevel2" DbName="DB.MiddleService" />
   </Function>
   <Function Name="Test">
     <GraphSetting Key="HelloApi" SpName="HelloApi" DbName="DB.MiddleService" />

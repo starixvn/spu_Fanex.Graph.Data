@@ -155,6 +155,7 @@
     </Compile>
     <Compile Include="Criteria\AddCustomerAndAssociationCriteria.cs" />
     <Compile Include="Helper\ObjectHelper.cs" />
+    <Compile Include="Models\CustomerAssociationLevel2.cs" />
     <Compile Include="Models\CustomerGroup.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Neo4j\Neo4jCommandBuilder.cs" />
@@ -190,6 +191,7 @@
     <Content Include="App_Data\Scripts\MiddleService\CheckAssociationOneLevel.scrypt" />
     <Content Include="App_Data\Scripts\MiddleService\SetLabelForRunningAlgo.scrypt" />
     <Content Include="App_Data\Scripts\MiddleService\RemoveLabelForRunningAlgo.scrypt" />
+    <Content Include="App_Data\Scripts\FPS\GetAssociationLevel2.scrypt" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
