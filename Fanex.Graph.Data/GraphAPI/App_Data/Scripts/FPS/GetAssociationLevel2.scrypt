@@ -1,4 +1,5 @@
 ﻿MATCH (c:Customer)
 WHERE c.CustId IN $CustIdList
 MATCH (c)-[:USED]->(:Device)<-[:USED]-(:Customer)-[:USED]->(:Device)<-[:USED]-(c2:Customer)
-RETURN c.CustId AS CustId, COLLECT(DISTINCT c2.CustId) AS AssociationLevel2
+WHERE c2.CustId <> c.CustId
+RETURN c.CustId AS CustId, COLLECT(DISTINCT c2.CustId) AS Level2AssociatedCustIds

@@ -9,6 +9,6 @@ namespace GraphAPI.Models
     {
         public int CustId { get; set; }
 
-        public int[] AssociationLevel2 { get; set; }
+        public int[] Level2AssociatedCustIds { get; set; }
     }
 }
