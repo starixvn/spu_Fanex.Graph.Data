@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Web.Http;
 
@@ -74,8 +75,8 @@ namespace GraphAPI.Controllers
             return DbSessionFactory.Execute(FPS.UpdateCustomerUsername2, criteria);
         }
 
-        [HttpGet]
-        public IEnumerable<CustomerAssociationLevel2> GetAssociationLevel2(string custIds)
+        [AcceptVerbs(WebRequestMethods.Http.Get, WebRequestMethods.Http.Post)]
+        public IHttpActionResult GetAssociationLevel2(string custIds)
         {
             var custIdList = custIds.Split(',').Select(a => Convert.ToInt32(a));
             IEnumerable<CustomerAssociationLevel2> result = null;
@@ -92,7 +93,35 @@ namespace GraphAPI.Controllers
             {
                 Logger.Error($"GetAssociationLevel2 - Result is null !");
             }
-            return result;
+
+            return Json(result);
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetAssociationLevel2Test(string custIds)
+        {
+            var custIdList = custIds.Split(',').Select(a => Convert.ToInt32(a));
+            List<CustomerAssociationLevel2> result = null;
+            try
+            {
+                result = new List<CustomerAssociationLevel2>();
+                int[] listAss = { 1, 2, 3 };
+                result.Add(new CustomerAssociationLevel2()
+                {
+                    CustId = 1,
+                    Level2AssociatedCustIds = listAss
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"GetAssociationLevel2 - {ex.Message}", ex);
+            }
+
+            if (result == null)
+            {
+                Logger.Error($"GetAssociationLevel2 - Result is null !");
+            }
+            return Json(result);
         }
 
         private static void InsertCustomer(AddCustomerAndAssociationCriteria criteria)
