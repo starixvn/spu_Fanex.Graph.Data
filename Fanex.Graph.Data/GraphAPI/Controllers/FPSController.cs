@@ -76,7 +76,7 @@ namespace GraphAPI.Controllers
         }
 
         [AcceptVerbs(WebRequestMethods.Http.Get, WebRequestMethods.Http.Post)]
-        public IHttpActionResult GetAssociationLevel2([FromBody] string custIds)
+        public IHttpActionResult GetAssociationLevel2(string custIds)
         {
             var custIdList = custIds.Split(',').Select(a => Convert.ToInt32(a));
             IEnumerable<CustomerAssociationLevel2> result = null;
@@ -98,7 +98,7 @@ namespace GraphAPI.Controllers
         }
 
         [AcceptVerbs(WebRequestMethods.Http.Get, WebRequestMethods.Http.Post)]
-        public IHttpActionResult GetAssociationLevel2Test([FromBody] string custIds)
+        public IHttpActionResult GetAssociationLevel2Test(string custIds)
         {
             var custIdList = custIds.Split(',').Select(a => Convert.ToInt32(a));
             List<CustomerAssociationLevel2> result = null;
