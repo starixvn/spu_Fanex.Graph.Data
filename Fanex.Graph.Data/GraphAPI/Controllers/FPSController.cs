@@ -82,9 +82,9 @@ namespace GraphAPI.Controllers
             IEnumerable<CustomerAssociationLevel2> result = null;
             try
             {
-                Logger.Info("GetAssociationLevel2 - Start time: " + DateTime.Now.ToString());
+                Logger.Error("GetAssociationLevel2 - Start time: " + DateTime.Now.ToString() + " CustId:" + custIds);
                 result = DbSessionFactory.Execute<CustomerAssociationLevel2>(FPS.GetAssociationLevel2, new { CustIdList = custIdList }).Data;
-                Logger.Info("GetAssociationLevel2 - End time: " + DateTime.Now.ToString());
+                Logger.Error("GetAssociationLevel2 - End time: " + DateTime.Now.ToString());
             }
             catch (Exception ex)
             {
