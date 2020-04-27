@@ -1,7 +1,10 @@
 ﻿MATCH (c:Customer)
 WHERE c.CustId IN $CustIdList
 MATCH (c)-[:USED]->(:Device)<-[:USED]-(c1:Customer)
-WITH distinct c,c1
-MATCH (c1)-[:USED]->(:Device)<-[:USED]-(c2:Customer)
+WITH DISTINCT c,c1
+MATCH (c1)-[:USED]->(d2:Device)
+WITH DISTINCT c,d2
+MATCH (d2)<-[:USED]-(c2:Customer)
 WHERE c2.CustId <> c.CustId
+WITH DISTINCT c,c2
 RETURN c.CustId AS CustId, COLLECT(DISTINCT c2.CustId) AS Level2AssociatedCustIds
